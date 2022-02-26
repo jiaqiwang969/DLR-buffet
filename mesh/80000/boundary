@@ -1,0 +1,172 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  2.4.0                                 |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       polyBoundaryMesh;
+    location    "constant/polyMesh";
+    object      boundary;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+
+20
+(
+    row_1_INFLOW_1
+    {
+        type             patch;
+        nFaces           40;
+        startFace        83964;
+        inGroups         (row_1_INFLOW);
+    }
+    row_1_HUB_2
+    {
+        type             wall;
+        nFaces           4480;
+        startFace        84004;
+        inGroups         (row_1_HUB);
+    }
+    row_1_SHROUD_3
+    {
+        type             wall;
+        nFaces           4480;
+        startFace        88484;
+        inGroups         (row_1_SHROUD);
+    }
+    row_1_OUTFLOW_4
+    {
+        type             patch;
+        nFaces           40;
+        startFace        92964;
+        inGroups         (row_1_OUTFLOW);
+    }
+    row_1_HUB_5
+    {
+        type             wall;
+        nFaces           4640;
+        startFace        93004;
+        inGroups         (row_1_HUB);
+    }
+    row_1_SHROUD_6
+    {
+        type             wall;
+        nFaces           4640;
+        startFace        97644;
+        inGroups         (row_1_SHROUD);
+    }
+    row_1_HUB_7
+    {
+        type             wall;
+        nFaces           13824;
+        startFace        102284;
+        inGroups         (row_1_HUB);
+    }
+    row_1_SHROUD_8
+    {
+        type             wall;
+        nFaces           13824;
+        startFace        116108;
+        inGroups         (row_1_SHROUD);
+    }
+    row_1_Main_Blade_9
+    {
+        type             wall;
+        nFaces           216;
+        startFace        129932;
+        inGroups         (row_1_Main_Blade);
+    }
+    row_1_Main_Blade_10
+    {
+        type             wall;
+        nFaces           216;
+        startFace        130148;
+        inGroups         (row_1_Main_Blade);
+    }
+    row_1_OUTFLOW_11
+    {
+        type             patch;
+        nFaces           24;
+        startFace        130364;
+        inGroups         (row_1_OUTFLOW);
+    }
+    row_1_INFLOW_12
+    {
+        type             patch;
+        nFaces           24;
+        startFace        130388;
+        inGroups         (row_1_INFLOW);
+    }
+    row_1_HUB_13
+    {
+        type             wall;
+        nFaces           9696;
+        startFace        130412;
+        inGroups         (row_1_HUB);
+    }
+    row_1_SHROUD_14
+    {
+        type             wall;
+        nFaces           9696;
+        startFace        140108;
+        inGroups         (row_1_SHROUD);
+    }
+    row_1_PER2_15
+    {
+        type             cyclicAMI;
+        nFaces           404;
+        startFace        149804;
+        matchTolerance   0.0001;
+        transform        translational;
+        separationVector (-0 -0.70714 -0);
+        neighbourPatch   row_1_PER1_16;
+        inGroups         (row_1_PER2);
+    }
+    row_1_INFLOW_17
+    {
+        type             patch;
+        nFaces           24;
+        startFace        150208;
+        inGroups         (row_1_INFLOW);
+    }
+    row_1_OUTFLOW_18
+    {
+        type             patch;
+        nFaces           24;
+        startFace        150232;
+        inGroups         (row_1_OUTFLOW);
+    }
+    row_1_HUB_19
+    {
+        type             wall;
+        nFaces           9696;
+        startFace        150256;
+        inGroups         (row_1_HUB);
+    }
+    row_1_SHROUD_20
+    {
+        type             wall;
+        nFaces           9696;
+        startFace        159952;
+        inGroups         (row_1_SHROUD);
+    }
+    row_1_PER1_16
+    {
+        type             cyclicAMI;
+        nFaces           404;
+        startFace        169648;
+        matchTolerance   0.0001;
+        transform        translational;
+        separationVector (-0 -0.70714 -0);
+        neighbourPatch   row_1_PER2_15;
+        inGroups         (row_1_PER1);
+    }
+)
+
+
+// ************************************************************************* //
