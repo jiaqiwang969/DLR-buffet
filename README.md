@@ -10,7 +10,7 @@
 ### 01-LowInletVelocity-Acoustic-Duct-Cascade
 InletBoundary |  OutletBoundary | Timescheme   | TurbulenceScheme |  Effeciency |   Info |
 |-------------| -------------|  ---------------|----------------- | ---------- |-------|
-| Uinlet (1 0 0) | inletOutlet | Backward | IDDES,S-A |  69s,40cores,0.025s,1.0e-6s,97,664 cells  |  |
+| Uinlet (1 0 0) | inletOutlet | Backward | IDDES,S-A |  69s,40cores,0.025s,1.0e-6s,97,664 cells  | [01.gif](https://github.com/jiaqiwang969/DLR-buffet/blob/main/Workspace/run/01-DLR-buffet/result/01.gif) |
 
 
 
