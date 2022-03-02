@@ -1,0 +1,17 @@
+*.rar
+*.so
+/platforms
+/Workspace/run/*/0.*
+/Workspace/run/*/postProcessing
+/Workspace/run/*/*/postProcessing
+/Workspace/run/*/constant/polymesh
+.*.swp
+.DS_Store
+/Workspace/*.sh
+/Workspace/*.md
+/Workspace/*.txt
+/Workspace/run/*/python/T-*.png
+/Workspace/run/*/python/p-*.png
+/Workspace/run/*/python/U-*.png
+/Workspace/run/*/*/logs
+*.avi
