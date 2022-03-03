@@ -28,6 +28,12 @@ CaseName |  Effeciency |   Info |
 |04-test02-rhoPimpleFoam-time1e9-Uinlet12-inletOutlet-backward-IDDES-SuperBee| | |
 |04-test02-rhoPimpleFoam-time1e9-Uinlet12-inletOutlet-backward-IDDES-vanLeer| | |
 
+NEXT LIST
+
+- Add surface force,y+,... postprocessing
+- Add rhoCentralFoam, LusgsFoam for comparision
+- Plan: how to compare with experiment data
+
 
 
 
