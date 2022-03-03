@@ -21,6 +21,17 @@ Solver | InletBoundary |  OutletBoundary | Timescheme   | TurbulenceScheme |divS
 |LusgsFoam| (1 0 0) sinwave-3000Hz | NRBCx | Eluer | IDDES,S-A |div(phi,U):Gauss MinmodV|   ... | ... |
 
 
+### 02-HighInletVelocity-NRBCxOutlet-Acoustic-Duct-Cascade-1.2-Mach
+CaseName |  Effeciency |   Info |
+|-------------| ---------- |-------|
+|04-test02-rhoPimpleFoam-time1e9-Uinlet12-inletOutlet-backward-IDDES-MinmodV| | |
+|04-test02-rhoPimpleFoam-time1e9-Uinlet12-inletOutlet-backward-IDDES-SuperBee| | |
+|04-test02-rhoPimpleFoam-time1e9-Uinlet12-inletOutlet-backward-IDDES-vanLeer| | |
+
+
+
+
+
 
 
 
