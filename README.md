@@ -37,6 +37,21 @@ NEXT LIST
 
 
 
+### Running Effeciency 
+Parameter: T=0.0001s/dt=1.0e-8/foam_divSchemes="SuperBeeV"/NRBCx/yPlus_max=1.0680066/64core each node
+| cores |  Effeciency |  
+|-------------| ---------- |
+| 2| ..|
+| 4| .. |
+| 8| 1220 s |
+| 16| 709 s |
+| 32| 455 s|
+| 64| 395 s|
+| 128|732 s |
+| 256|1223 s |
+
+
+
 
 
 
