@@ -1,5 +1,6 @@
 *.rar
 *.so
+/Workspace/run
 /platforms
 /Workspace/run/*/0.*
 /Workspace/run/*/postProcessing

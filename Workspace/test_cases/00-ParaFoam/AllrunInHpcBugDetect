@@ -1,0 +1,113 @@
+#!/bin/bash
+
+#SBATCH --job-name=runFoam
+#SBATCH --partition=64c512g
+#SBATCH -n 64
+#SBATCH --ntasks-per-node=64
+#SBATCH --output=%j.out
+#SBATCH --error=%j.err
+
+#1. Load the necessary modules
+#module load singularity
+ 
+#2. Defining the container to be used
+theRepo=/dssg/home/acct-medgm/medgm/00-sif
+theContainerBaseName=openfoam
+theVersion=v2012
+theProvider=pawsey
+theImage=$theRepo/$theContainerBaseName-$theVersion-$theProvider.sif
+ 
+#3. Defining the case directory
+caseName=04-test02-rhoCF-time1e9-Ufreestream-01
+theSolver=myrhoPimpleFoam
+projectUserDir=$SLURM_SUBMIT_DIR/../../projectUserDir
+baseWorkingDir=$SLURM_SUBMIT_DIR/../../run
+caseDir=$baseWorkingDir/$caseName
+logsDir=$caseDir/logs/pre
+
+#3.1 User extra defined
+
+
+
+#4. Copy the file to run
+#mkdir -p $baseWorkingDir
+#rm -rf $baseWorkingDir/$caseName
+#cp -rf $SLURM_SUBMIT_DIR/../../test_cases/$caseName $baseWorkingDir
+
+# create log directory
+if ! [ -d $logsDir ]; then
+   mkdir -p $logsDir
+fi
+
+
+
+#5. Defining OpenFOAM controlDict settings for Pawsey Best Practices
+#cd $caseDir1
+#foam_writeFormat="ascii"
+#sed -i 's,^writeFormat.*,writeFormat    '"$foam_writeFormat"';,' ./system/controlDict
+#foam_runTimeModifiable="true"
+#sed -i 's,^runTimeModifiable.*,runTimeModifiable    '"$foam_runTimeModifiable"';,' ./system/controlDict
+#foam_purgeWrite=0
+#sed -i 's,^purgeWrite.*,purgeWrite    '"$foam_purgeWrite"';,' ./system/controlDict
+
+
+
+#6. Reading the OpenFOAM decomposeParDict settings
+#echo "Reading decomposeParDict"
+#foam_numberOfSubdomains=$(grep "^numberOfSubdomains" ./system/decomposeParDict | tr -dc '0-9')
+
+
+#-> where I am
+echo "----------> where I am: $SLURM_SUBMIT_DIR"
+
+## Main CASE
+echo "----------> cd to $caseDir"
+cd $caseDir
+
+#echo "Cleaning files"
+#singularity exec -B $projectUserDir:/home/ofuser/OpenFOAM/ofuser-$theVersion $theImage foamCleanTutorials 2>&1 | tee $logsDir/log.foamCleanTutorials.$SLURM_JOBID
+
+
+#touch foam.foam
+#echo "----------> blockMesh"
+#singularity exec -B $projectUserDir:/home/ofuser/OpenFOAM/ofuser-$theVersion $theImage blockMesh 2>&1 | tee $logsDir/log.blockMesh_main.$SLURM_JOBID
+
+#echo "----------> Run surfaceFeatureExtract"
+#singularity exec -B $projectUserDir:/home/ofuser/OpenFOAM/ofuser-$theVersion $theImage surfaceFeatureExtract 2>&1 | tee $logsDir/log.surfaceFeatureExtract.$SLURM_JOBID
+
+
+#echo "----------> decomposePar"
+#singularity run -B $projectUserDir:/home/ofuser/OpenFOAM/ofuser-$theVersion $theImage decomposePar -force 2>&1 | tee $logsDir/log.decomposePar.$SLURM_JOBID
+
+
+foam_numberOfSubdomains=$(grep "^numberOfSubdomains" ./system/decomposeParDict | tr -dc '0-9')
+#echo "----------> Run snappyHexMesh on $foam_numberOfSubdomains cores"
+#srun --mpi=pmi2 singularity exec -B $projectUserDir:/home/ofuser/OpenFOAM/ofuser-$theVersion $theImage snappyHexMesh -parallel -overwrite 2>&1 | tee $logsDir/log.snappyHexMesh.$SLURM_JOBID
+
+
+#echo "----------> Reconstruct mesh to /constant directory"
+#singularity exec -B $projectUserDir:/home/ofuser/OpenFOAM/ofuser-$theVersion $theImage reconstructParMesh -constant 2>&1 | tee $logsDir/log.reconstructParMesh.$SLURM_JOBID
+
+
+#echo "----------> restore0Dir"
+#mv 0_org 0
+
+#echo "----------> Decompose"
+#singularity exec -B $projectUserDir:/home/ofuser/OpenFOAM/ofuser-$theVersion $theImage decomposePar -force 2>&1 | tee $logsDir/log.decomposePar2.$SLURM_JOBID
+
+echo "----------> run the $theSolver"
+srun --mpi=pmi2 singularity exec -B $projectUserDir:/home/ofuser/OpenFOAM/ofuser-$theVersion $theImage $theSolver -parallel 2>&1 | tee $logsDir/log.$theSolver.$SLURM_JOBID
+echo "----------> solver done"
+
+
+#endTime1=$(grep "^endTime" ./system/controlDict | grep -oP '\d*\.\d+' )
+#echo "----------> run reconstructPar in Parallel"
+#singularity run -B $projectUserDir:/home/ofuser/OpenFOAM/ofuser-$theVersion $theImage reconstructParallel n=$foam_numberOfSubdomains start=0 end=$endTime1 
+
+#echo "----------> Reconstruct latest result"
+#singularity run -B $projectUserDir:/home/ofuser/OpenFOAM/ofuser-$theVersion $theImage reconstructPar  2>&1 | tee $logsDir/log.reconstructPar.$SLURM_JOBID
+
+#echo "----------> Sampling"
+#singularity run -B $projectUserDir:/home/ofuser/OpenFOAM/ofuser-$theVersion $theImage postProcess -func sampleDict  2>&1 | tee $logsDir/log.sampling.$SLURM_JOBID
+
+echo "----------> script done"

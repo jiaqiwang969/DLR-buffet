@@ -1,0 +1,92 @@
+/*--------------------------------*- C++ -*----------------------------------* \
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  dev                                   |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       volVectorField;
+    object      U;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+Mach    2;
+soundSpeed    343.1143;  // sqrt(gamma*R*T)
+vinlet        #eval{$soundSpeed*$Mach};
+beta0         60.6;
+beta1         #eval{ degToRad($beta0) };
+cos_beta1     #eval{ cos($beta1) };
+sin_beta1     #eval{ sin($beta1) };
+Uinletx       #eval{ $vinlet*$cos_beta1 };
+Uinlety       #eval{ $vinlet*$sin_beta1 };
+Uinlet        ($Uinletx $Uinlety 0);
+poutlet       73048;
+turning       9.9;
+beta2         #eval{ degToRad($beta0-$turning)};
+cos_beta2     #eval{ cos($beta2) };
+sin_beta2     #eval{ sin($beta2) };
+Uoutletx      #eval{ $vinlet*$cos_beta2 };
+Uoutlety      #eval{ $vinlet*$sin_beta2 };
+Uoutlet       ($Uoutletx $Uoutlety 0);
+
+
+
+
+
+dimensions      [0 1 -1 0 0 0 0];
+
+internalField   uniform $Uoutlet;
+
+boundaryField
+{
+    INLET
+    {
+        type            freestreamVelocity;
+        freestreamValue uniform $Uinlet;
+    }
+    OUTLET
+    {
+        //type            inletOutlet;
+        //inletValue      uniform $Uinlet;
+        //value           uniform $Uinlet;
+	type            velocityOutletNSCBCx;
+        pInf            $poutlet;
+        gamma           1.4;
+        etaAc           1;
+        fieldInf        (1 0 0);
+        lInf            1;
+        value           $internalField;;
+        //type            inletOutlet;
+        //inletValue      uniform (0 0 0);
+        //value           uniform (0 0 0);
+
+    }
+    row_1_PER1
+    {
+        type            cyclic;
+        //value           uniform (0 0 0);
+    }
+    row_1_PER2
+    {
+        type            cyclic;
+        //value           uniform (0 0 0);
+    }
+    Blade
+    {
+        type            noSlip;
+    }
+    front
+    {
+        type            empty;
+    }
+    back
+    {
+        type            empty;
+    }
+}
+
+// ************************************************************************* //

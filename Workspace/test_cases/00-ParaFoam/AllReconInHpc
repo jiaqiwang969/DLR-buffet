@@ -1,0 +1,28 @@
+#!/bin/bash
+
+#SBATCH --job-name=runFoam
+#SBATCH --partition=64c512g
+#SBATCH -n 64
+#SBATCH --ntasks-per-node=64
+#SBATCH --output=%j.out
+#SBATCH --error=%j.err
+
+#1. Load the necessary modules
+#module load singularity
+ 
+#2. Defining the container to be used
+theRepo=/dssg/home/acct-medgm/medgm/00-sif
+theContainerBaseName=openfoam
+theVersion=v2012
+theProvider=pawsey
+theImage=$theRepo/$theContainerBaseName-$theVersion-$theProvider.sif
+projectUserDir=../../projectUserDir
+pwd
+
+foam_numberOfSubdomains=$(grep "^numberOfSubdomains" ./system/decomposeParDict | tr -dc '0-9')
+endTime1=$(grep "^endTime" ./system/controlDict | grep -oP '\d*\.\d+' )
+
+echo "----------> run reconstructPar in Parallel"
+singularity run -B $projectUserDir:/home/ofuser/OpenFOAM/ofuser-$theVersion $theImage reconstructParallel n=160 start=0 end=$endTime1 
+echo "----------> vorticity output"
+singularity run -B $projectUserDir:/home/ofuser/OpenFOAM/ofuser-$theVersion $theImage postProcess -func vorticity
