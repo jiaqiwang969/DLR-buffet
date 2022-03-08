@@ -1,0 +1,99 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  v2006                                 |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      fvSchemes;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+dbnsFlux hllcLMFlux;
+//dbnsFlux betaFlux;
+//dbnsFlux AUSMplusUpFlux;
+
+AUSMplusUpFluxCoeffs {
+   MaInf 0.2;
+   printCoeffs true;
+}
+
+ddtSchemes
+{
+ //default         Euler;
+ default         backward;
+}
+
+gradSchemes
+{
+    default         Gauss linear;
+    limitedGauss    cellLimited Gauss linear 1;
+    venkatakrishnan Venkatakrishnan Gauss linear 5;
+
+}
+
+divSchemes
+{
+    default         none;
+    div(devRhoReff) Gauss linear;
+    div((devRhoReff&U)) Gauss linear;
+
+    div((muEff*dev2(grad(U).T()))) Gauss linear;
+
+//    div(phi,U)      Gauss MinmodV;
+
+//    turbulence      Gauss limitedLinear 1.0;
+//    energy          Gauss limitedLinear 1.0;
+    div(phi,k)      Gauss linearUpwind venkatakrishnan;
+    div(phi,omega)  Gauss linearUpwind venkatakrishnan;
+    div(phi,nuTilda)  Gauss linearUpwind venkatakrishnan;
+
+/    div(phi,k)       $turbulence;
+/    div(phi,omega)   $turbulence;
+//    div(phi,nuTilda) bounded Gauss limitedLinear 1.0;
+    
+//    div(phi,h)      $energy;
+//    div(phi,K)      $energy;
+//    div(phi,Ekp)    $energy;
+
+//    div(phiv,p)     Gauss limitedLinear 1.0;
+//    div(phid,p)     Gauss limitedLinear 1.0;
+
+//    div(((rho*nuEff)*dev2(T(grad(U)))))    Gauss linear;
+//    div((nuEff*dev2(T(grad(U))))) Gauss linear;
+//    div(((rho*(thermo:mu|rho))*dev2(T(grad(U))))) Gauss linear;
+}
+
+laplacianSchemes
+{
+    default         Gauss linear corrected;
+}
+
+interpolationSchemes
+{
+    default          linear;
+    reconstruct(p) linearUpwind  venkatakrishnan; 
+    reconstruct(U) linearUpwindV venkatakrishnan; 
+    reconstruct(T) linearUpwind  venkatakrishnan; 
+//    reconstruct(rho) vanLeer;
+//    reconstruct(U)   vanLeerV;
+//    reconstruct(T)   vanLeer;
+}
+
+snGradSchemes
+{
+    default         corrected;
+}
+
+
+
+wallDist
+{
+    method meshWave;
+}
+
+// ************************************************************************* //

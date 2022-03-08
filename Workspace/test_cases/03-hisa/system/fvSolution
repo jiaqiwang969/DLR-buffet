@@ -1,0 +1,173 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  v2006                                 |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      fvSolution;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+solvers
+{
+    "(k|omega|nuTilda)"
+    {
+        solver          smoothSolver;
+        smoother        symGaussSeidel;
+        tolerance       1e-10;
+        relTol          0;
+        minIter         1;
+    }
+
+    "(k|omega|nuTilda)Final"
+    {
+        $nuTilda;
+        tolerance       1e-10;
+        reltol          0;
+        minIter         1;
+    }
+
+    yPsi
+    {
+        solver          GAMG;
+        smoother        GaussSeidel;
+        cacheAgglomeration true;
+        nCellsInCoarsestLevel 10;
+        agglomerator    faceAreaPair;
+        mergeLevels     1;
+        tolerance       1e-5;
+        relTol          0;
+    }
+}
+
+relaxationFactors
+{
+    equations
+    {
+        nuTilda         0.5;
+        k               0.5;
+        omega           0.5;
+    }
+}
+
+Jacobian LaxFriedrichs;
+
+flowSolver
+{
+    solver            GMRES;
+    GMRES
+    {
+        inviscidJacobian  LaxFriedrichs;
+        viscousJacobian   laplacian;
+        preconditioner    LUSGS;
+
+        maxIter           20;
+        nKrylov           8;
+        solverTolRel      1e-1 (1e-1 1e-1 1e-1) 1e-1;
+    }
+}
+pseudoTime
+{
+    nPseudoCorr        20;
+
+    pseudoTol          1e-6 (1e-6 1e-6 1e-6) 1e-6;
+    pseudoTolRel       1e-2 (1e-2 1e-2 1e-2) 1e-2;
+
+    pseudoCoNum        1.0;
+    pseudoCoNumMax     20.0;
+    localTimestepping  true;
+}
+
+
+
+
+
+//solvers
+//{
+//    "(rho|rhoU|rhoE)"
+//    {
+//        solver          diagonal;
+//    }
+
+//    "(U|e|nuTilda)"
+//    {
+//        solver          smoothSolver;
+//        smoother        GaussSeidel;
+//        nSweeps         2;
+//        tolerance       1e-9;
+//        relTol          0.01;
+//        minIter         1;
+//    }
+//}
+
+//solvers
+//{
+//    "(p|U|k|omega|e|epsilon|R|nuTilda)"
+//    {
+//        solver          PBiCGStab;
+//        preconditioner  DILU;
+//        tolerance       1e-6;
+//        relTol          0.001;
+//        minIter         2;
+//    }
+//    pFinal
+//    {
+//        $p;
+//        relTol          0;
+//    }
+//    "rho.*"
+//    {
+//	solver diagonal;		
+//    }
+//    "(rho|U|k|omega|e|epsilon|R|nuTilda)Final"
+//    {
+//        $U;
+//        relTol          0;
+//    }
+//
+//
+//}
+
+//PIMPLE
+//{
+//
+//    transonic           yes;
+//    nOuterCorrectors    3;
+//    nCorrectors         1;
+//    nNonOrthogonalCorrectors 1;
+//    consistent          yes;
+//    momentumPredictor   yes;
+//
+//}
+
+//LUSGS {
+//    internalIterations 50;
+//    localTimestepping true;
+//    relTol 1.e-3;
+//    tolerance 1.e-4;
+//}
+
+//fieldBounds
+//{
+//    rho 0.01 10;
+//    p   100 1e6;
+//    T   10 800;
+//}
+
+
+
+//relaxationFactors
+//{
+//    equations
+//    {
+//        ".*"     1;
+//    }
+//}
+
+// ************************************************************************* //
