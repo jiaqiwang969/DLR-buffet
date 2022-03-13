@@ -2,7 +2,7 @@
 - Aim: Reproduce the experiment result in paper “High‐Speed PIV of shock boundary layer interactions in the transonic buffet flow of a compressor cascade”
 - Ref: Andre Weiner/naca0012--shock_buffet 
 - Sponsor：Dong
-- Acknowledge：Song，[Cheng](https://blog.csdn.net/weixin_39124457/article/details/120152679?spm=1001.2014.3001.5502)
+- Acknowledge：Song Moru
 
 
 ### Running Effeciency 
