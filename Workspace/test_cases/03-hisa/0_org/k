@@ -13,9 +13,10 @@ FoamFile
     object      k;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
-
-kInlet          121;
-kwall           1;
+//omegaInlet      79859.57062499248;
+kInlet          45937.5;
+//http://ichrome.com/blogs/archives/342
+//Length L=0.07;velocity=350;Kinematic viscosity v=1.75e-5;Turbulence intensity I=0.5%
 
 dimensions      [0 2 -2 0 0 0 0];
 
@@ -29,9 +30,7 @@ boundaryField
         U    U;
         phi  phi;
         intensity 0.05;
-        value $internalField;
-        /*type      fixedValue;
-        value     uniform   121;*/
+        value uniform $kInlet; 
     }
 
     row_1_PER1
@@ -46,14 +45,17 @@ boundaryField
     {
         //type zeroGradient;
         type     inletOutlet;
-        inletValue   uniform  121;
-        value        uniform  121;
+        inletValue   uniform  $kInlet;
+        value        uniform  $kInlet;
     }
     Blade
     {
+        type            kLowReWallFunction; //low-y+ walls
+        value           uniform 100;
+
         //type zeroGradient;
-        type      kqRWallFunction;
-        value     uniform 121;
+//        type      kqRWallFunction;
+//        value     uniform 121;
     }
     front
     {

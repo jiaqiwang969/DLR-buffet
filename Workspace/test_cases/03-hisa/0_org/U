@@ -14,32 +14,11 @@ FoamFile
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-Mach    2;
-soundSpeed    343.1143;  // sqrt(gamma*R*T)
-vinlet        #eval{$soundSpeed*$Mach};
-beta0         60.6;
-beta1         #eval{ degToRad($beta0) };
-cos_beta1     #eval{ cos($beta1) };
-sin_beta1     #eval{ sin($beta1) };
-Uinletx       #eval{ $vinlet*$cos_beta1 };
-Uinlety       #eval{ $vinlet*$sin_beta1 };
-Uinlet        ($Uinletx $Uinlety 0);
-poutlet       73048;
-turning       9.9;
-beta2         #eval{ degToRad($beta0-$turning)};
-cos_beta2     #eval{ cos($beta2) };
-sin_beta2     #eval{ sin($beta2) };
-Uoutletx      #eval{ $vinlet*$cos_beta2 };
-Uoutlety      #eval{ $vinlet*$sin_beta2 };
-Uoutlet       ($Uoutletx $Uoutlety 0);
-
-
-
-
+#include        "include/freestreamConditions"
 
 dimensions      [0 1 -1 0 0 0 0];
 
-internalField   uniform $Uoutlet;
+internalField   uniform (0 0 0);
 
 boundaryField
 {
@@ -47,19 +26,42 @@ boundaryField
     {
         type            freestreamVelocity;
         freestreamValue uniform $Uinlet;
+
+//        type              characteristicFarfieldVelocity;
+//        U            $Uinlet;
+//        p            $pinlet;
+//        T            $Tinlet;
+//        value         uniform     $Uinlet;
     }
     OUTLET
     {
+//*1
+	type zeroGradient;
+	value           $internalField;
+
+//*2
+//	type    characteristicFarfieldVelocity;
+//        U            $Uoutlet;
+//        p            $poutlet;
+//        T            $Toutlet;
+//        value         uniform     $Uoutlet;
+
+
+//*3
         //type            inletOutlet;
         //inletValue      uniform $Uinlet;
         //value           uniform $Uinlet;
-	type            velocityOutletNSCBCx;
-        pInf            $poutlet;
-        gamma           1.4;
-        etaAc           1;
-        fieldInf        (1 0 0);
-        lInf            1;
-        value           $internalField;;
+
+//*4
+//   	  type            velocityOutletNSCBCx;
+//        pInf            $poutlet;
+//        gamma           1.4;
+//        etaAc           1;
+//        fieldInf        (1 0 0);
+//        lInf            0.07;
+//        value           $internalField;
+
+//*5
         //type            inletOutlet;
         //inletValue      uniform (0 0 0);
         //value           uniform (0 0 0);
@@ -77,7 +79,8 @@ boundaryField
     }
     Blade
     {
-        type            noSlip;
+	    type            boundaryCorrectedFixedValue;
+	    value           uniform (0 0 0);
     }
     front
     {

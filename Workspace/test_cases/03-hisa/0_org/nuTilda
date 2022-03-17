@@ -40,9 +40,12 @@ boundaryField
     }
     Blade
     {
+        type            boundaryCorrectedFixedValue;
+        value           uniform 0;
+
         //type zeroGradient;
-        type fixedValue;
-        value uniform 0;
+//        type fixedValue;
+//        value uniform 0;
     }
     front
     {

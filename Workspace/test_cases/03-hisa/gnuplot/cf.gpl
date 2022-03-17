@@ -1,0 +1,12 @@
+set term png enh
+set output "cf.png"
+
+#set yrange [0:0.01]
+
+set ylabel "c_f"
+set xlabel "Re_c"
+
+set grid
+
+plot "ercoftac_t3a_cf.dat" ti "Experiment", \
+     "postProcessing/surface/5000/wallShearStress_Blade.raw" us (350*sqrt($1**2+$2**2)/1.8e-5):(2*sqrt($4**2+$5**2)/350**2) with point ti "Result"

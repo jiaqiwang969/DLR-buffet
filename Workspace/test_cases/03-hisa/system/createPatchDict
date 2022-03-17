@@ -69,7 +69,7 @@ patches
         constructFrom patches;
 
         // If constructFrom = patches : names of patches. Wildcards allowed.
-        patches (SOLID_WALL_9 SOLID_WALL_10);
+        patches (SOLID_WALL_11 SOLID_WALL_12);
 
     }
 
@@ -87,7 +87,7 @@ patches
         constructFrom patches;
 
         // If constructFrom = patches : names of patches. Wildcards allowed.
-        patches (SOLID_WALL_3  SOLID_WALL_5 SOLID_WALL_7   SOLID_WALL_11 SOLID_WALL_13  SOLID_WALL_1 SOLID_WALL_15 );
+        patches (SOLID_WALL_1 SOLID_WALL_3      SOLID_WALL_13 SOLID_WALL_15  SOLID_WALL_9   SOLID_WALL_7 SOLID_WALL_5);
 
     }
     {
@@ -104,7 +104,7 @@ patches
         constructFrom patches;
 
         // If constructFrom = patches : names of patches. Wildcards allowed.
-        patches  (SOLID_WALL_4  SOLID_WALL_6  SOLID_WALL_8 SOLID_WALL_12 SOLID_WALL_14 SOLID_WALL_2 SOLID_WALL_16 );
+        patches  (SOLID_WALL_2 SOLID_WALL_4   SOLID_WALL_14 SOLID_WALL_16 SOLID_WALL_10 SOLID_WALL_8 SOLID_WALL_6);
 
     }
 

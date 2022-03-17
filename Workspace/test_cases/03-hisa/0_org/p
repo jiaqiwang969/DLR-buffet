@@ -13,12 +13,8 @@ FoamFile
     object      p;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
-ptotal      101325;
-Mach        1.05;
-soundSpeed  343.1143;  // sqrt(gamma*R*T)
-vinlet      #eval{$soundSpeed*$Mach};
-pinlet      #eval{$ptotal - 0.5*1.225*$vinlet*$vinlet};
-poutlet     73048;
+
+#include        "include/freestreamConditions"
 
 dimensions      [1 -1 -2 0 0 0 0];
 
@@ -29,34 +25,50 @@ boundaryField
     INLET
     {
       //	type zeroGradient;
-       type            totalPressure;
-       psi             thermo:psi;  
-       gamma           1.4;      
-       p0              uniform $ptotal;
-       value           uniform $pinlet;
+        type            characteristicFarfieldPressure;
+        U            $Uinlet;
+        p            $pinlet;
+        T            $Tinlet;
+        value         uniform  $pinlet;
+//       type            totalPressure;
+//       psi             thermo:psi;  
+//       gamma           1.4;      
+//       p0              uniform $ptotal;
+//       value           uniform $pinlet;
 
     }
     OUTLET
     {
-    //    type           fixedMean;
-    //    meanValue      $pOut;
-    //    value          uniform 1e5;
-        type            pressureOutletNSCBC;
-        field           p;
-        gamma           1.4;
-        fieldInf        1;
-        lInf            1;
-        pInf            $poutlet;
-        etaAc           1;
-        value           $internalField;
+//*1
+//        type    characteristicFarfieldPressure;
+//        U            $Uoutlet;
+//        p            $poutlet;
+//        T            $Toutlet;
+//        value        uniform     $poutlet;
 
+//*2
+        type           fixedMean;
+        meanValue      $poutlet;
+        value          uniform $poutlet;
+
+//*3
+//        type            pressureOutletNSCBC;
+//        field           p;
+//        gamma           1.4;
+//        fieldInf        1;
+//        lInf            0.07;
+//        pInf            $poutlet;
+//        etaAc           1;
+//        value           $internalField;
+
+//*4
 //        type            waveTransmissive;
 //        field           p;
 //        psi             thermo:psi;
 //        gamma           1.4;
-//        fieldInf        100000;
+//        fieldInf        $poutlet;
 //        lInf            1e-5;
-//        value           uniform 100000;
+//        value           $internalField;
     }
     row_1_PER1
     {
@@ -69,7 +81,10 @@ boundaryField
     }
     Blade
     {
-        type             zeroGradient;
+        type            characteristicWallPressure;
+        value           $internalField;
+
+//        type             zeroGradient;
     }
     front
     {

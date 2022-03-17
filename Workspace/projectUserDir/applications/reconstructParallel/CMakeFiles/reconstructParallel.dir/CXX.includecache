@@ -6,7 +6,7 @@
 
 #IncludeRegexTransform: 
 
-/dssg/home/acct-medgm/medgm/05-NSCBC-prove/Workspace/projectUserDir/applications/reconstructParallel/src/main.cpp
+/dssg/home/acct-medgm/medgm/06-DLR-buffet/Workspace/projectUserDir/applications/reconstructParallel/src/main.cpp
 stdio.h
 -
 stdlib.h

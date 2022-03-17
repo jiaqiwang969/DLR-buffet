@@ -10,7 +10,7 @@ FoamFile
     version     2.0;
     format      ascii;
     class       volScalarField;
-    object      mut;
+    object      nut;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
@@ -41,8 +41,11 @@ boundaryField
     Blade
     {
         //type zeroGradient;
-        type nutkWallFunction;
-        value $internalField;
+//        type nutkWallFunction;
+//        value $internalField;
+        type            boundaryCorrectedNutLowReWallFunction;              // y+ < 1
+        value           uniform 0;
+
     }
     front
     {

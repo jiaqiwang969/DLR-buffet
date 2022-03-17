@@ -14,12 +14,9 @@ FoamFile
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-Tinlet          293;
-Mach            1.05;
-gamma           1.4;
-Ttotal          #eval{$Tinlet + $Mach*$Mach*($gamma-1)/2};
-Toutlet         300;
-poutlet         73048;
+
+#include        "include/freestreamConditions"
+
 
 
 dimensions      [0 0 0 1 0 0 0];
@@ -30,24 +27,44 @@ boundaryField
 {
     INLET
     {
+//      type fixedValue; 
+//      value uniform $Tinlet;
      //   type            zeroGradient;
      //   value           $internalField;
-        type       totalTemperature;
-        gamma      1.4;
-        psi        thermo:psi;
-        T0         uniform $Ttotal;
-        value      uniform $Tinlet;
+        type         characteristicFarfieldTemperature;
+        U            $Uinlet;
+     	p            $pinlet;
+        T            $Tinlet;
+	value        uniform $Tinlet;
+//        type       totalTemperature;
+//        gamma      1.4;
+//        psi        thermo:psi;
+//        T0         uniform $Ttotal;
+//        value      uniform $Tinlet;
     }
     OUTLET
     {
-        type            temperatureOutletNSCBC;
-        field           T;
-        gamma           1.4;
-        fieldInf        1;
-        lInf            1;
-        pInf            $poutlet;
-        etaAc           1;
+
+//*1
+        type zeroGradient;
         value           $internalField;
+
+//*2
+//        type    characteristicFarfieldTemperature;
+//        U            $Uoutlet;
+//        p            $poutlet;
+//        T            $Toutlet;
+//        value         uniform     $Toutlet;
+
+//*3
+//        type            temperatureOutletNSCBC;
+//        field           T;
+//        gamma           1.4;
+//        fieldInf        1;
+//        lInf            0.07;
+//        pInf            $poutlet;
+//        etaAc           1;
+//        value           $internalField;
 //        type            inletOutlet;
 //        inletValue      uniform $Tinlet;
 //        value           $inletValue;
@@ -63,7 +80,10 @@ boundaryField
     }
     Blade
     {
-        type            zeroGradient;
+        type            characteristicWallTemperature;
+        value           $internalField;
+
+//        type            zeroGradient;
     }
     front
     {

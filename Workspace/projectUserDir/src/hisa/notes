@@ -1,0 +1,14 @@
+TODO:
+* Investigate Roe matrix for Lax-Friedrich
+* Test placement of turbulence update
+* GMRES solver using Fields instead of volFields -> postpone until LduInterfaceField is properly templated; until then, GeometricFields are needed for coupling - OO
+* Relaxation to increase diagonal dominance
+* Add a checker for make sure best practices followed
+  - Steady state consistency
+  - characteristicWallPRessure used at walls
+  - Consider overriding all fixedValue to boundaryCorrectedFixedValue (See below) - yes (check OO CHT stuff)
+  - Check nuTilda relaxation factor of 0.5
+  - If using parallel redistribution, the last patch should be a zero-sized fixedValue patch
+* Test freezing Jacobians
+* Implement Venkatakrishnan limiter
+* Implement Roe shock-capturing

@@ -18,7 +18,7 @@ MachNo1
     enabled         true;
     log             true;
     timeStart       0;
-    timeEnd         1000;
+    timeEnd         20000;
     executeControl  timeStep;
     executeInterval 1;
     writeControl    writeTime;

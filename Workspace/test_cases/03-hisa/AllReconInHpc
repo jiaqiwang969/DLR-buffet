@@ -1,21 +1,22 @@
 #!/bin/bash
 
-#SBATCH --job-name=runFoam
+#SBATCH --job-name=runFoam-test-parallel
 #SBATCH --partition=64c512g
-#SBATCH -n 1
+#SBATCH -n 64
 #SBATCH --ntasks-per-node=64
 #SBATCH --output=%j.out
 #SBATCH --error=%j.err
 
 #1. Load the necessary modules
 #module load singularity
- 
+
 #2. Defining the container to be used
 theRepo=/dssg/home/acct-medgm/medgm/00-sif
 theContainerBaseName=openfoam
 theVersion=v2012
 theProvider=pawsey
 theImage=$theRepo/$theContainerBaseName-$theVersion-$theProvider.sif
+
 projectUserDir=../../projectUserDir
 pwd
 
@@ -23,7 +24,7 @@ pwd
 #endTime1=$(grep "^endTime" ./system/controlDict | grep -oP '\d*\.\d+' )
 
 #echo "----------> run reconstructPar in Parallel"
-#singularity run -B $projectUserDir:/home/ofuser/OpenFOAM/ofuser-$theVersion $theImage reconstructParallel n=160 start=0 end=$endTime1 
+singularity run -B $projectUserDir:/home/ofuser/OpenFOAM/ofuser-$theVersion $theImage reconstructParallel n=64 start=0.0001 end=0.00718
 #echo "----------> vorticity output"
 #singularity run -B $projectUserDir:/home/ofuser/OpenFOAM/ofuser-$theVersion $theImage postProcess -func vorticity
-singularity run -B $projectUserDir:/home/ofuser/OpenFOAM/ofuser-$theVersion $theImage reconstructPar -newTimes
+#singularity run -B $projectUserDir:/home/ofuser/OpenFOAM/ofuser-$theVersion $theImage reconstructPar -newTimes

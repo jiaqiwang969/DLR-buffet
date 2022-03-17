@@ -13,28 +13,35 @@ FoamFile
     object      controlDict;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
-libs (  "libfluidThermophysicalModels.so" "libmyFoam.so" "libvelocityOutletNSCBCx.so" "libvelocityOutletNSCBCy.so" "libvelocityOutletNSCBCz.so"  "libwaveTransmision.so" "libpressureOutletNSCBC.so" "libtemperatureOutletNSCBC.so");
+libs (
+   "libcompressibleTurbulenceModels.so"
+   "libfindroot.so"
+   "libhisaFiniteVolume.so"
+   "libvelocityOutletNSCBCx.so" 
+   "libpressureOutletNSCBC.so"
+   "libtemperatureOutletNSCBC.so"
+);
 application     hisa;
 
-startFrom    startTime;
+startFrom    latestTime;
 
 startTime    0;
 
 stopAt    endTime;
 
-endTime    0.05;
+endTime    0.1;
 
-deltaT     1.0e-9;
+deltaT     5.0e-7;
 
-writeControl  adjustableRunTime;//  adjustable;
+writeControl  adjustableRunTime;
 
-writeInterval    1.0e-6;
+writeInterval    1;
 
-purgeWrite    0;
+purgeWrite    2;
 
 writeFormat    binary;
 
-writePrecision   8;
+writePrecision   6;
 
 writeCompression off;
 
@@ -54,10 +61,12 @@ functions
 {
     #include "FOMachNo"
     #include "FOyPlus"
-    #include "FOforces"
-    #include "FOpressure"
-    #include "FOsurfaceSample"
-    #include "FOIDDES"
+    #includeFunc "writeCellCentres"
+    #includeFunc "wallShearStress"
+//   #include "FOforces"
+//    #include "FOpressure"
+//    #include "FOsurfaceSample"
+//    #include "FOIDDES"
 }
 
 // ************************************************************************* //

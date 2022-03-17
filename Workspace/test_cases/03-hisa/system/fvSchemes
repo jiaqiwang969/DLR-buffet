@@ -13,21 +13,11 @@ FoamFile
     object      fvSchemes;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
-//dbnsFlux hllcLMFlux;
-//dbnsFlux betaFlux;
-//dbnsFlux AUSMplusUpFlux;
 fluxScheme           AUSMPlusUp;
-
-
-//AUSMplusUpFluxCoeffs {
-//   MaInf 0.2;
-//   printCoeffs true;
-//}
 
 ddtSchemes
 {
- //default         Euler;
- default         backward;
+   default        dualTime rPseudoDeltaT steadyState;
 }
 
 gradSchemes
@@ -45,29 +35,9 @@ divSchemes
     div(phi,nuTilda) bounded Gauss upwind phi;
     div(phi,k)       bounded Gauss upwind phi;
     div(phi,omega)   bounded Gauss upwind phi;
-//    div(devRhoReff) Gauss linear;
-//    div((devRhoReff&U)) Gauss linear;
-
-//    div((muEff*dev2(grad(U).T()))) Gauss linear;
-
-//    div(phi,U)      Gauss MinmodV;
-
-//    turbulence      Gauss limitedLinear 1.0;
-//    energy          Gauss limitedLinear 1.0;
-
-//    div(phi,k)       $turbulence;
-//    div(phi,omega)   $turbulence;
-    
-//    div(phi,h)      $energy;
-//    div(phi,K)      $energy;
-//    div(phi,Ekp)    $energy;
-
-//    div(phiv,p)     Gauss limitedLinear 1.0;
-//    div(phid,p)     Gauss limitedLinear 1.0;
-
-//    div(((rho*nuEff)*dev2(T(grad(U)))))    Gauss linear;
-//    div((nuEff*dev2(T(grad(U))))) Gauss linear;
-//    div(((rho*(thermo:mu|rho))*dev2(T(grad(U))))) Gauss linear;
+    div(phi,Ret)    bounded Gauss linear;
+    div(phi,im) bounded Gauss linear;
+    div((nuEff*dev2(T(grad(U))))) Gauss linear;
 }
 
 laplacianSchemes
@@ -75,6 +45,13 @@ laplacianSchemes
     default                     Gauss linear corrected;
     laplacian(muEff,U)          Gauss linear compact;
     laplacian(alphaEff,e)       Gauss linear compact;
+    laplacian((1|A(U)),p) Gauss linear corrected;
+    laplacian(DkEff,k) Gauss linear corrected;
+    laplacian(DomegaEff,omega) Gauss linear corrected;
+    laplacian(DRetEff,Ret) Gauss linear corrected;
+    laplacian(DimEff,im) Gauss linear corrected;
+    laplacian(DREff,R) Gauss linear corrected;
+    laplacian(DnuTildaEff,nuTilda) Gauss linear corrected;
 }
 
 interpolationSchemes
@@ -89,7 +66,6 @@ snGradSchemes
 {
     default         corrected;
 }
-
 
 
 wallDist

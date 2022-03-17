@@ -1,4 +1,4 @@
-# Install script for directory: /dssg/home/acct-medgm/medgm/05-NSCBC-prove/Workspace/projectUserDir/applications/reconstructParallel
+# Install script for directory: /dssg/home/acct-medgm/medgm/06-DLR-buffet/Workspace/projectUserDir/applications/reconstructParallel
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -45,5 +45,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/dssg/home/acct-medgm/medgm/05-NSCBC-prove/Workspace/projectUserDir/applications/reconstructParallel/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/dssg/home/acct-medgm/medgm/06-DLR-buffet/Workspace/projectUserDir/applications/reconstructParallel/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

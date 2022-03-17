@@ -5,9 +5,9 @@ surface
     writeControl    writeTime;
 
     surfaceFormat   raw;
-    fields          (total(p)_coeff yPlus p rho T);
+    fields          (wallShearStress total(p)_coeff yPlus p rho T);
 
-    // interpolationScheme cellPoint;  //<- default
+    interpolationScheme cellPoint;  //<- default
 
     surfaces
     {
