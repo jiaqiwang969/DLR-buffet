@@ -18,7 +18,7 @@ Parameter: T=0.0001s/foam_divSchemes="SuperBeeV"/NRBCx/yPlus_max=1.0680066/64cor
   <img src="https://github.com/jiaqiwang969/DLR-buffet/blob/main/Performance.jpeg" width="400px">
 </div>
 
-- Further, deep learning will be implemented to approximate the F_length curve. This will open a new project.
+- Further, deep learning will be implemented to approximate the F_length curve. This will open a new project called [TransitionAI](https://github.com/jiaqiwang969/TransitionAI).
 
 
 
