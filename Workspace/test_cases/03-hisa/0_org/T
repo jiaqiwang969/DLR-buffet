@@ -27,47 +27,13 @@ boundaryField
 {
     INLET
     {
-//      type fixedValue; 
-//      value uniform $Tinlet;
-     //   type            zeroGradient;
-     //   value           $internalField;
-        type         characteristicFarfieldTemperature;
-        U            $Uinlet;
-     	p            $pinlet;
-        T            $Tinlet;
-	value        uniform $Tinlet;
-//        type       totalTemperature;
-//        gamma      1.4;
-//        psi        thermo:psi;
-//        T0         uniform $Ttotal;
-//        value      uniform $Tinlet;
+        type            zeroGradient;
+        value           $internalField;
     }
     OUTLET
     {
-
-//*1
         type zeroGradient;
         value           $internalField;
-
-//*2
-//        type    characteristicFarfieldTemperature;
-//        U            $Uoutlet;
-//        p            $poutlet;
-//        T            $Toutlet;
-//        value         uniform     $Toutlet;
-
-//*3
-//        type            temperatureOutletNSCBC;
-//        field           T;
-//        gamma           1.4;
-//        fieldInf        1;
-//        lInf            0.07;
-//        pInf            $poutlet;
-//        etaAc           1;
-//        value           $internalField;
-//        type            inletOutlet;
-//        inletValue      uniform $Tinlet;
-//        value           $inletValue;
     }
     row_1_PER1
     {
@@ -82,8 +48,6 @@ boundaryField
     {
         type            characteristicWallTemperature;
         value           $internalField;
-
-//        type            zeroGradient;
     }
     front
     {

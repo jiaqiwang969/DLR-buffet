@@ -13,11 +13,11 @@ FoamFile
     object      fvSchemes;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
-fluxScheme           AUSMPlusUp;
+fluxScheme    AUSMPlusUp;
 
 ddtSchemes
 {
-   default        dualTime rPseudoDeltaT steadyState;
+   default         backward;
 }
 
 gradSchemes

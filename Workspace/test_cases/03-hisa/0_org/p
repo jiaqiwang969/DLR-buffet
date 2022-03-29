@@ -24,51 +24,15 @@ boundaryField
 {
     INLET
     {
-      //	type zeroGradient;
-        type            characteristicFarfieldPressure;
-        U            $Uinlet;
-        p            $pinlet;
-        T            $Tinlet;
-        value         uniform  $pinlet;
-//       type            totalPressure;
-//       psi             thermo:psi;  
-//       gamma           1.4;      
-//       p0              uniform $ptotal;
-//       value           uniform $pinlet;
+      	type zeroGradient;
+	value         uniform  $pinlet;
 
     }
     OUTLET
     {
-//*1
-//        type    characteristicFarfieldPressure;
-//        U            $Uoutlet;
-//        p            $poutlet;
-//        T            $Toutlet;
-//        value        uniform     $poutlet;
-
-//*2
         type           fixedMean;
         meanValue      $poutlet;
         value          uniform $poutlet;
-
-//*3
-//        type            pressureOutletNSCBC;
-//        field           p;
-//        gamma           1.4;
-//        fieldInf        1;
-//        lInf            0.07;
-//        pInf            $poutlet;
-//        etaAc           1;
-//        value           $internalField;
-
-//*4
-//        type            waveTransmissive;
-//        field           p;
-//        psi             thermo:psi;
-//        gamma           1.4;
-//        fieldInf        $poutlet;
-//        lInf            1e-5;
-//        value           $internalField;
     }
     row_1_PER1
     {
@@ -83,8 +47,6 @@ boundaryField
     {
         type            characteristicWallPressure;
         value           $internalField;
-
-//        type             zeroGradient;
     }
     front
     {

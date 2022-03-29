@@ -26,56 +26,19 @@ boundaryField
     {
         type            freestreamVelocity;
         freestreamValue uniform $Uinlet;
-
-//        type              characteristicFarfieldVelocity;
-//        U            $Uinlet;
-//        p            $pinlet;
-//        T            $Tinlet;
-//        value         uniform     $Uinlet;
     }
     OUTLET
     {
-//*1
 	type zeroGradient;
 	value           $internalField;
-
-//*2
-//	type    characteristicFarfieldVelocity;
-//        U            $Uoutlet;
-//        p            $poutlet;
-//        T            $Toutlet;
-//        value         uniform     $Uoutlet;
-
-
-//*3
-        //type            inletOutlet;
-        //inletValue      uniform $Uinlet;
-        //value           uniform $Uinlet;
-
-//*4
-//   	  type            velocityOutletNSCBCx;
-//        pInf            $poutlet;
-//        gamma           1.4;
-//        etaAc           1;
-//        fieldInf        (1 0 0);
-//        lInf            0.07;
-//        value           $internalField;
-
-//*5
-        //type            inletOutlet;
-        //inletValue      uniform (0 0 0);
-        //value           uniform (0 0 0);
-
     }
     row_1_PER1
     {
         type            cyclic;
-        //value           uniform (0 0 0);
     }
     row_1_PER2
     {
         type            cyclic;
-        //value           uniform (0 0 0);
     }
     Blade
     {

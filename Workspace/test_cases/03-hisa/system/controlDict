@@ -29,15 +29,15 @@ startTime    0;
 
 stopAt    endTime;
 
-endTime    0.1;
+endTime    0.01;
 
-deltaT     5.0e-7;
+deltaT    5.0e-7;
 
-writeControl  adjustableRunTime;
+writeControl    adjustableRunTime;
 
-writeInterval    1;
+writeInterval    1e-6;
 
-purgeWrite    2;
+purgeWrite    0;
 
 writeFormat    binary;
 
@@ -53,7 +53,7 @@ runTimeModifiable    true;
 
 adjustTimeStep  yes;
 
-maxCo           0.25;
+maxCo    20;
 
 maxDeltaT       1e-5;
 
@@ -63,6 +63,8 @@ functions
     #include "FOyPlus"
     #includeFunc "writeCellCentres"
     #includeFunc "wallShearStress"
+    #include "FOMachAveInlet"
+    #include "FOMachAveOutlet"
 //   #include "FOforces"
 //    #include "FOpressure"
 //    #include "FOsurfaceSample"

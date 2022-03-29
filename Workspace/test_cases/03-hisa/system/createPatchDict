@@ -16,6 +16,8 @@ FoamFile
 
 pointSync false;
 
+
+
 // Patches to create.
 patches
 (
@@ -69,7 +71,7 @@ patches
         constructFrom patches;
 
         // If constructFrom = patches : names of patches. Wildcards allowed.
-        patches (SOLID_WALL_11 SOLID_WALL_12);
+        patches (SOLID_WALL_1 SOLID_WALL_2);
 
     }
 
@@ -80,15 +82,19 @@ patches
         // Dictionary to construct new patch from
         patchInfo
         {
-            type empty;
+            type cyclic;
+            neighbourPatch front;
+            transform translational;
+	    separationVector (0 0 -0.024);
+	    matchTolerance 1E-5;
         }
 
         // How to construct: either from 'patches' or 'set'
         constructFrom patches;
 
         // If constructFrom = patches : names of patches. Wildcards allowed.
-        patches (SOLID_WALL_1 SOLID_WALL_3      SOLID_WALL_13 SOLID_WALL_15  SOLID_WALL_9   SOLID_WALL_7 SOLID_WALL_5);
-
+        patches (PER_RIGHT_1 PER_RIGHT_3 PER_RIGHT_4 PER_RIGHT_6 PER_RIGHT_7 PER_RIGHT_8 PER_RIGHT_10);
+	set f0;
     }
     {
         // Name of new patch
@@ -97,15 +103,19 @@ patches
         // Dictionary to construct new patch from
         patchInfo
         {
-            type empty;
+            type cyclic;
+	    neighbourPatch back;
+            transform translational;
+            separationVector (0 0 0.024);
+	    matchTolerance 1E-5;
         }
 
         // How to construct: either from 'patches' or 'set'
         constructFrom patches;
 
         // If constructFrom = patches : names of patches. Wildcards allowed.
-        patches  (SOLID_WALL_2 SOLID_WALL_4   SOLID_WALL_14 SOLID_WALL_16 SOLID_WALL_10 SOLID_WALL_8 SOLID_WALL_6);
-
+        patches  (PER_LEFT_1 PER_LEFT_3 PER_LEFT_4 PER_LEFT_6 PER_LEFT_7 PER_LEFT_8 PER_LEFT_10);
+	set f0;
     }
 
 

@@ -20,9 +20,9 @@ foam_numberOfSubdomains=64
 
 #2. Control parameter
 theSolver=hisa
-foam_MachInlet="1.05"     
-foam_MacsOutlet="0.71"
-foam_polyMesh_type="long2"
+foam_MachInlet="1.12"     
+foam_MacsOutlet="0.7"
+foam_polyMesh_type="short"
 foam_writeFormat="binary"
 foam_fluxSchemes="AUSMPlusUp"
 
@@ -43,12 +43,13 @@ foam_steady_polyMesh_type=$foam_polyMesh_type
 foam_steady_MachInlet=$foam_MachInlet
 foam_steady_MacsOutlet=$foam_MacsOutlet
 
-
+# Relax first to speed up
+# zeroGradient boundary
 #2. Transient1 parameter
-foam_transient1_writeInterval="0.5e-4"
-foam_transient1_maxCo="1" 
+foam_transient1_writeInterval="0.0001"
+foam_transient1_maxCo="45" 
 foam_transient1_endTime="0.0001" 
-foam_transient1_deltaT="5.0e-8"
+foam_transient1_deltaT="5.0e-7"
 foam_transient1_ddtScheme="backward" 
 foam_transient1_writeControl="adjustableRunTime"  
 foam_transient1_runTimeModifiable="true"
@@ -61,11 +62,12 @@ foam_transient1_polyMesh_type=$foam_polyMesh_type
 foam_transient1_MachInlet=$foam__MachInlet
 foam_transient1_MacsOutlet=$foam__MacsOutlet
 
+# Need to choose boundary condition
 #2. Transient2 parameter
-foam_transient2_writeInterval="0.5e-4"
-foam_transient2_maxCo="1"
+foam_transient2_writeInterval="1e-6"
+foam_transient2_maxCo="20"
 foam_transient2_endTime="0.01"
-foam_transient2_deltaT="5.0e-8"
+foam_transient2_deltaT="5.0e-7"
 foam_transient2_ddtScheme="backward"
 foam_transient2_writeControl="adjustableRunTime"
 foam_transient2_runTimeModifiable="true"
@@ -78,10 +80,19 @@ foam_transient2_polyMesh_type=$foam_polyMesh_type
 foam_transient2_MachInlet=$foam__MachInlet
 foam_transient2_MacsOutlet=$foam__MacsOutlet
 
-
+# Select boundary condition 
+#1-ofBasic1,2-ofBasic2,3-charac,4-NRBC,5-fixValue
+foam_transient2_pInletBoundary=3
+foam_transient2_TInletBoundary=3
+foam_transient2_UInletBoundary=3
+foam_transient2_pOutletBoundary=4
+foam_transient2_TOutletBoundary=4
+foam_transient2_UOutletBoundary=4
 
 #2. Project Name
-caseName=TTT02-$theSolver-$foam_MachInlet-$foam_MacsOutlet-$foam_fluxSchemes-$foam_steady_endTime-maxCo$foam_transient1_maxCo-$foam_transient1_deltaT-$foam_polyMesh_type
+caseName=S03-$theSolver-$foam_MachInlet-$foam_MacsOutlet-$foam_fluxSchemes-$foam_steady_endTime-maxCo$foam_transient1_maxCo-$foam_transient1_deltaT-$foam_polyMesh_type-$foam_transient2_pInletBoundary$foam_transient2_TInletBoundary$foam_transient2_UInletBoundary$foam_transient2_pOutletBoundary$foam_transient2_TOutletBoundary$foam_transient2_UOutletBoundary
+
+
 polyMeshName=polyMesh-igg-final-$foam_polyMesh_type
 
 
@@ -108,12 +119,19 @@ echo "----------> cd to $caseDir"
 cd $caseDir
 rm -rf *.err
 rm -rf *.out
+rm -rf constant/polyMesh
 cp -rf constant/$polyMeshName constant/polyMesh
 rm -rf constant/polyMesh-igg*
 rm -rf constant/igg*
 
 echo "----------> restore0Dir"
 mv 0_org 0
+if [ $foam_polyMesh_type == "short-3d" ]
+then
+     echo "change empty to cyclicAMI"
+     grep -l -r 'empty' 0| xargs sed -i 's,empty,cyclicAMI,g'
+fi
+
 
 #5. steday controlDict Setting
 sed -i 's,^writeFormat.*,writeFormat    '"$foam_steady_writeFormat"';,' ./system/controlDict
@@ -144,13 +162,14 @@ echo "----------> FINISH STEADY STEP"
 echo "----------> Reconstruct latest result"
 singularity run -B $projectUserDir:/home/ofuser/OpenFOAM/ofuser-$theVersion $theImage reconstructPar  2>&1 | tee $logsDir/log.reconstructPar.$SLURM_JOBID
 
+
 rm -rf processors$foam_numberOfSubdomains
 cp -rf 0/include $foam_steady_endTime
 rm -rf 0
 mv $foam_steady_endTime 0
 rm -rf 0/uniform
 sed -i '/location/d' 0/*
-
+mv postProcessing oldpostProcessing 
 
 
 #5. Transient controlDict Setting
@@ -167,6 +186,7 @@ sed -i 's,^endTime.*,endTime    '"$foam_transient1_endTime"';,' ./system/control
 sed -i 's,^numberOfSubdomains.*,numberOfSubdomains    '"$foam_transient1_numberOfSubdomains"';,' ./system/decomposeParDict
 sed -i 's,^fluxScheme.*,fluxScheme    '"$foam_transient1_fluxSchemes"';,' ./system/fvSchemes
 sed -i 's,steadyState,'"$foam_transient1_ddtScheme"','  ./system/fvSchemes
+
 
 
 echo "----------> Decompose"
@@ -193,71 +213,404 @@ sed -i "$line$insertHead" $foam_transient2_startTime/U
 sed -i "$line$insertHead" $foam_transient2_startTime/p
 
 
-echo "----------> Change to NRBC outlet boundary"
-insertT='i\
-        type            temperatureOutletNSCBC; \
-        field           T; \
+echo "----------> Select Boundary Condition!"
+echo "----------> 1-ofBasic1,2-ofBasic2,2-charac,4-NRBC,5-fixValue"
+#INLET-Pressure
+case $foam_transient2_pInletBoundary in
+    1)
+        echo "pInlet eroGradient"
+insertpinlet='i\
+        type         zeroGradient;
+'
+        ;;	
+    2)
+        echo "pInlet totalPressure"
+insertpinlet='i\
+       type            totalPressure; \
+       psi             thermo:psi; \
+       gamma           1.4; \
+       p0              uniform $ptotal;
+'    
+        ;;
+    3)
+        echo "pInlet characteristicFarfieldPressure"
+insertpinlet='i\
+        type         characteristicFarfieldPressure; \
+        U            $Uinlet; \
+        p            $pinlet; \
+        T            $Tinlet; 
+'
+        ;;
+    4)
+        echo "pInlet NRBC"
+insertpinlet='i\
+        type            pressureOutletNSCBC; \
+        field           p; \
         gamma           1.4; \
         fieldInf        1; \
         lInf            0.07; \
-        pInf            $poutlet; \
-        etaAc           1; \
-	value           uniform $Toutlet;
+        pInf            $pinlet; \
+        etaAc           1;
 '
+        ;;
+    5)
+        echo "pInlet fixValue"
+insertpinlet='i\
+        type            fixedValue; 
+'
+        ;;
+esac
 
 
-insertU='i\
-        type            velocityOutletNSCBCx; \
-        pInf            $poutlet; \
+#OUTLET-pressure
+case $foam_transient2_pOutletBoundary in
+    1)
+        echo "pOutlet fixedMean"
+insertpoutlet='i\
+        type         fixedMean; \
+        meanValue    $poutlet; 
+'
+        ;;
+    2)
+        echo "pOutlet waveTransmissive"
+insertpoutlet='i\
+        type            waveTransmissive; \
+        field           p; \
+        psi             thermo:psi; \
         gamma           1.4; \
-        etaAc           1; \
-        fieldInf        (1 0 0); \
-        lInf            0.07; \
-        value           uniform $Uoutlet;
+        fieldInf        $poutlet; \
+        lInf            1e-5;        
 '
-
-insertp='i\
+        ;;
+    3)
+        echo "pOutlet characteristicFarfieldPressure"
+insertpoutlet='i\
+        type         characteristicFarfieldPressure; \
+        U            $Uoutlet; \
+        p            $poutlet; \
+        T            $Toutlet;
+'
+        ;;
+    4)
+        echo "pOutlet NRBC"
+insertpoutlet='i\
         type            pressureOutletNSCBC; \
         field           p; \
         gamma           1.4; \
         fieldInf        1; \
         lInf            0.07; \
         pInf            $poutlet; \
-        etaAc           1;
+        etaAc           1; 
 '
+        ;;
+    5)
+        echo "pOutlet fixValue"
+insertpoutlet='i\
+        type            fixedValue; 
+'
+        ;;
+esac
 
-function get_lineT() {
+
+
+
+
+#INLET-Temperature
+case $foam_transient2_TInletBoundary in
+    1)
+        echo "pOutlet zeroGradient"
+insertTinlet='i\
+	type         zeroGradient; 
+'
+        ;;
+    2)
+        echo "pOutlet totalTemperature"
+insertTinlet='i\
+       type            totalTemperature; \
+       psi             thermo:psi; \
+       gamma           1.4; \
+       T0              uniform $Ttotal; 
+'
+        ;;
+    3)
+        echo "pOutlet characteristicFarfieldTemperature"
+insertTinlet='i\
+        type         characteristicFarfieldTemperature; \
+        U            $Uinlet; \
+        p            $pinlet; \
+        T            $Tinlet; 
+'
+        ;;
+    4)
+        echo "pOutlet NRBC"
+insertTinlet='i\
+	type            temperatureOutletNSCBC; \
+        field           T; \
+        gamma           1.4; \
+        fieldInf        1; \
+        lInf            0.07; \
+        pInf            $pinlet; \
+        etaAc           1; 
+'
+        ;;
+    5)
+        echo "pOutlet fixValue"
+insertTinlet='i\
+        type            fixedValue; 
+'
+        ;;
+esac
+
+
+
+
+
+
+#OUTLET-Temperature
+case $foam_transient2_TOutletBoundary in
+    1)
+        echo "TOutlet zeroGradient"
+insertToutlet='i\
+        type         zeroGradient; 
+'
+        ;;
+    2)
+        echo "TOutlet waveTransmissive"
+insertToutlet='i\
+        type            waveTransmissive; \
+        field           T; \
+        psi             thermo:psi; \
+        gamma           1.4; \
+        fieldInf        $Toutlet; \
+        lInf            1e-5;      
+'
+        ;;
+    3)
+        echo "TOutlet characteristicFarfieldTemperature"
+insertToutlet='i\
+        type         characteristicFarfieldTemperature; \
+        U            $Uoutlet; \
+        p            $poutlet; \
+        T            $Toutlet;
+'
+        ;;
+    4)
+        echo "TOutlet NRBC"
+insertToutlet='i\
+        type            temperatureOutletNSCBC; \
+        field           T; \
+        gamma           1.4; \
+        fieldInf        1; \
+        lInf            0.07; \
+        pInf            $poutlet; \
+        etaAc           1; 
+'
+        ;;
+    5)
+        echo "TOutlet fixValue"
+insertToutlet='i\
+        type            fixedValue; 
+'
+        ;;
+esac
+
+
+
+
+
+#INLET-Velocity
+case $foam_transient2_UInletBoundary in
+    1)
+        echo "UInlet freestreamVelocity"
+insertUinlet='i\
+        type            freestreamVelocity; \
+        freestreamValue uniform $Uinlet; 
+'
+        ;;
+    2)
+        echo "UInlet EMPTY"
+        ;;
+    3)
+        echo "UInlet characteristicFarfieldVelocity"
+insertUinlet='i\
+        type         characteristicFarfieldVelocity; \
+        U            $Uinlet; \
+        p            $pinlet; \
+        T            $Tinlet; 
+'
+        ;;
+    4)
+        echo "UInlet velocityOutletNSCBCx"
+insertUinlet='i\
+        type            velocityOutletNSCBCx; \
+        pInf            $pinlet; \
+        gamma           1.4; \
+        etaAc           1; \
+        fieldInf        (-1 0 0); \
+        lInf            0.07; 
+'
+        ;;
+    5)
+        echo "UInlet fixValue"
+insertUinlet='i\
+        type            fixedValue; 
+'
+esac
+
+
+
+
+
+
+#OUTLET-Velocity
+case $foam_transient2_UOutletBoundary in
+    1)
+        echo "UOutlet zeroGradient"
+insertUoutlet='i\
+	type zeroGradient;
+'
+        ;;
+    2)
+        echo "UOutlet inletOutlet"
+insertUoutlet='i\
+        type            inletOutlet; \
+        inletValue      uniform $Uinlet; 
+'
+        ;;
+    3)
+        echo "UOutlet characteristicFarfieldVelocity"
+insertUoutlet='i\
+        type         characteristicFarfieldVelocity; \
+        U            $Uoutlet; \
+        p            $poutlet; \
+        T            $Toutlet; 
+'
+        ;;
+    4)
+        echo "UOutlet velocityOutletNSCBCx"
+insertUoutlet='i\
+        type            velocityOutletNSCBCx; \
+        pInf            $poutlet; \
+        gamma           1.4; \
+        etaAc           1; \
+        fieldInf        (1 0 0); \
+        lInf            0.07; 
+'
+        ;;
+    5)
+        echo "UOutlet fixValue"
+insertUoutlet='i\
+        type            fixedValue; 
+'
+        ;;
+esac
+
+
+
+
+
+
+function getOutletLineT() {
         sed -n -e '/OUTLET/=' $foam_transient2_startTime/T
 }
-function get_lineU() {
+function getOutletLineU() {
         sed -n -e '/OUTLET/=' $foam_transient2_startTime/U
 }
-function get_linep() {
+function getOutletLinep() {
         sed -n -e '/OUTLET/=' $foam_transient2_startTime/p
 }
 
-lineT=$(get_lineT)
-lineT1=$((lineT +  2))  #for zeroGradient:2, charac:5
-lineT2=$((lineT1 +  0))
-lineU=$(get_lineU)
-lineU1=$((lineU +  2))  #for zeroGradient:2, charac:5
-lineU2=$((lineU1 +  0))
-linep=$(get_linep)
-linep1=$((linep +  2))
-linep2=$((linep1 +  1))
 
-insert_func() {
-        sed -i "${lineT1},${lineT2}d" $foam_transient2_startTime/T
-        sed -i "$lineT1$insertT" $foam_transient2_startTime/T
-        sed -i "${lineU1},${lineU2}d" $foam_transient2_startTime/U
-        sed -i "$lineU1$insertU" $foam_transient2_startTime/U
-        sed -i "${linep1},${linep2}d" $foam_transient2_startTime/p
-        sed -i "$linep1$insertp" $foam_transient2_startTime/p
+function getInletLineT() {
+        sed -n -e '/INLET/=' $foam_transient2_startTime/T
+}
+function getInletLineU() {
+        sed -n -e '/INLET/=' $foam_transient2_startTime/U
+}
+function getInletLinep() {
+        sed -n -e '/INLET/=' $foam_transient2_startTime/p
 }
 
-insert_func
+
+echo "----------> DEBUG"
+echo $(getOutletLineT)
+echo $(getOutletLineU)
+echo $(getOutletLineU)
+echo $(getInletLineT)
+echo $(getInletLineU)
+echo $(getInletLinep)
 
 
+
+#ä=/space bug
+lineTOutlet=$(getOutletLineT)
+lineT1Outlet=$((lineTOutlet+2)) 
+lineT2Outlet=$((lineT1Outlet+0)) 
+lineUOutlet=$(getOutletLineU)
+lineU1Outlet=$((lineUOutlet+2)) 
+lineU2Outlet=$((lineU1Outlet+0)) 
+linepOutlet=$(getOutletLinep)
+linep1Outlet=$((linepOutlet+2))
+linep2Outlet=$((linep1Outlet+1)) 
+
+
+lineTInlet=$(getInletLineT)
+lineT1Inlet=$((lineTInlet+2))
+lineT2Inlet=$((lineT1Inlet+0)) 
+lineUInlet=$(getInletLineU)
+lineU1Inlet=$((lineUInlet+2))
+lineU2Inlet=$((lineU1Inlet+1)) 
+linepInlet=$(getInletLinep)
+linep1Inlet=$((linepInlet+2))
+linep2Inlet=$((linep1Inlet+0)) 
+
+
+
+
+echo $lineTInlet
+echo $lineT1Inlet
+echo $lineT2Inlet
+echo $lineUInlet
+echo $lineU1Inlet
+echo $lineU2Inlet
+echo $linepInlet
+echo $linep1Inlet
+echo $linep2Inlet
+
+
+
+insert_Outlet_func() {
+        sed -i "${lineT1Outlet},${lineT2Outlet}d" $foam_transient2_startTime/T
+        sed -i "${lineT1Outlet}${insertToutlet}" $foam_transient2_startTime/T
+        sed -i "${lineU1Outlet},${lineU2Outlet}d" $foam_transient2_startTime/U
+        sed -i "${lineU1Outlet}${insertUoutlet}" $foam_transient2_startTime/U
+        sed -i "${linep1Outlet},${linep2Outlet}d" $foam_transient2_startTime/p
+        sed -i "${linep1Outlet}${insertpoutlet}" $foam_transient2_startTime/p
+}
+
+
+insert_Inlet_func() {
+        sed -i "${lineT1Inlet},${lineT2Inlet}d" $foam_transient2_startTime/T
+        sed -i "${lineT1Inlet}${insertTinlet}" $foam_transient2_startTime/T
+        sed -i "${lineU1Inlet},${lineU2Inlet}d" $foam_transient2_startTime/U
+        sed -i "${lineU1Inlet}${insertUinlet}" $foam_transient2_startTime/U
+        sed -i "${linep1Inlet},${linep2Inlet}d" $foam_transient2_startTime/p
+        sed -i "${linep1Inlet}${insertpinlet}" $foam_transient2_startTime/p
+}
+
+
+
+
+
+
+
+
+
+echo "----------> Insert INLET/OUTLET BOUNDRY"
+insert_Outlet_func
+insert_Inlet_func
+
+echo "----------> Insert associated controlDict/fvSchemes"
 
 sed -i 's,^writeFormat.*,writeFormat    '"$foam_transient2_writeFormat"';,' ./system/controlDict
 sed -i 's,^runTimeModifiable.*,runTimeModifiable    '"$foam_transient2_runTimeModifiable"';,' ./system/controlDict
@@ -272,7 +625,7 @@ sed -i 's,^endTime.*,endTime    '"$foam_transient2_endTime"';,' ./system/control
 sed -i 's,^numberOfSubdomains.*,numberOfSubdomains    '"$foam_transient2_numberOfSubdomains"';,' ./system/decomposeParDict
 sed -i 's,^fluxScheme.*,fluxScheme    '"$foam_transient2_fluxSchemes"';,' ./system/fvSchemes
 sed -i 's,steadyState,'"$foam_transient2_ddtScheme"','  ./system/fvSchemes
-sed -i 's,dualTime rPseudoDeltaT,,' ./system/fvSchemes
+sed -i 's,dualTime rPseudoDeltaT,,' ./system/fvSchemes 
 
 
 echo "----------> Decompose"
