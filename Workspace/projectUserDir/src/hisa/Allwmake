@@ -1,5 +1,0 @@
-#! /bin/bash
-
-cd src && { ./Allwmake; cd ..; }
-
-cd applications && { ./Allwmake; cd ..; }

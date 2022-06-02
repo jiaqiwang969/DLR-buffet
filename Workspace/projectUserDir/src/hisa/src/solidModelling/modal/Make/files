@@ -1,5 +1,0 @@
-modalSolver.C
-
-pointPatchFields/derived/modalMotion/modalMotionPointPatchVectorField.C
-
-LIB = $(FOAM_USER_LIBBIN)/libmodal

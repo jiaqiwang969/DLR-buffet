@@ -1,2 +1,0 @@
-velocityOutletNSCBCzFvPatchFields.C
-LIB = $(FOAM_USER_LIBBIN)/libvelocityOutletNSCBCz

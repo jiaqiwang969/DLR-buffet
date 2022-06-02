@@ -1,0 +1,36 @@
+/*---------------------------------------------------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | foam-extend: Open Source CFD                    |
+|  \\    /   O peration     | Version:     4.0                                |
+|   \\  /    A nd           | Web:         http://www.foam-extend.org         |
+|    \\/     M anipulation  | For copyright notice see file Copyright         |
+\*---------------------------------------------------------------------------*/
+Build    : 4.0-268bb07d15d8
+Exec     : sample
+Date     : Apr 26 2022
+Time     : 10:37:34
+Host     : node006.pi.sjtu.edu.cn
+PID      : 1815455
+CtrlDict : "/dssg/home/acct-medgm/medgm/06-DLR-buffet/Workspace/test_cases/03-dbns-shocktube/01-rusanov-firstOrder/system/controlDict"
+Case     : /dssg/home/acct-medgm/medgm/06-DLR-buffet/Workspace/test_cases/03-dbns-shocktube/01-rusanov-firstOrder
+nProcs   : 1
+SigFpe   : Enabling floating point exception trapping (FOAM_SIGFPE).
+
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+Create time
+
+Create mesh for time = 0
+
+Time = 0
+
+
+--> FOAM FATAL IO ERROR: 
+size 400 is not equal to the given value of 100
+
+file: /dssg/home/acct-medgm/medgm/06-DLR-buffet/Workspace/test_cases/03-dbns-shocktube/01-rusanov-firstOrder/0/p from line 18 to line 1258.
+
+    From function Field<Type>::Field(const word& keyword, const dictionary&, const label)
+    in file /opt/foam/foam-extend-4.0/src/foam/lnInclude/Field.C at line 239.
+
+FOAM exiting
+
