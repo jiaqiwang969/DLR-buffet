@@ -5,6 +5,12 @@
 - Acknowledge：Song Moru
 
 
+
+
+### Frame：
+
+<img src="https://cdn.mathpix.com/snip/images/FLoKLu0FjsDo5S0EtAbn2p4PrqaI1Vb70ONrhrDzlPY.original.fullsize.png" />
+
 ### Running Effeciency 
 Parameter: T=0.0001s/foam_divSchemes="SuperBeeV"/NRBCx/yPlus_max=1.0680066/64core each node
 | cores |  rhoPimpleFoam | rhoCentralFoam |myFoam| hisa |
