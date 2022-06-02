@@ -16,4 +16,4 @@
 /Workspace/run/*/python/U-*.png
 /Workspace/run/*/*/logs
 *.avi
-/Workspace/*/constant/polyMesh*
+/Workspace/*/*/constant/polyMesh*
