@@ -1,0 +1,107 @@
+/*---------------------------------------------------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | foam-extend: Open Source CFD                    |
+|  \\    /   O peration     | Version:     4.0                                |
+|   \\  /    A nd           | Web:         http://www.foam-extend.org         |
+|    \\/     M anipulation  | For copyright notice see file Copyright         |
+\*---------------------------------------------------------------------------*/
+Build    : 4.0-268bb07d15d8
+Exec     : sample
+Date     : Apr 26 2022
+Time     : 13:00:25
+Host     : node358.pi.sjtu.edu.cn
+PID      : 1649594
+CtrlDict : "/dssg/home/acct-medgm/medgm/06-DLR-buffet/Workspace/test_cases/03-dbns-shocktube/00-test-580-roe-firstOrder/system/controlDict"
+Case     : /dssg/home/acct-medgm/medgm/06-DLR-buffet/Workspace/test_cases/03-dbns-shocktube/00-test-580-roe-firstOrder
+nProcs   : 1
+SigFpe   : Enabling floating point exception trapping (FOAM_SIGFPE).
+
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+Create time
+
+Create mesh for time = 0
+
+Time = 0
+
+Time = 1e-05
+
+Time = 2e-05
+
+Time = 3e-05
+
+Time = 4e-05
+
+Time = 5e-05
+
+Time = 6e-05
+
+Time = 7e-05
+
+Time = 8e-05
+
+Time = 9e-05
+
+Time = 0.0001
+
+Time = 0.00011
+
+Time = 0.00012
+
+Time = 0.00013
+
+Time = 0.00014
+
+Time = 0.00015
+
+Time = 0.00016
+
+Time = 0.00017
+
+Time = 0.00018
+
+Time = 0.00019
+
+Time = 0.0002
+
+Time = 0.00021
+
+Time = 0.00022
+
+Time = 0.00023
+
+Time = 0.00024
+
+Time = 0.00025
+
+Time = 0.00026
+
+Time = 0.00027
+
+Time = 0.00028
+
+Time = 0.00029
+
+Time = 0.0003
+
+Time = 0.00031
+
+Time = 0.00032
+
+Time = 0.00033
+
+Time = 0.00034
+
+Time = 0.00035
+
+Time = 0.00036
+
+Time = 0.00037
+
+Time = 0.00038
+
+Time = 0.00039
+
+Time = 0.0004
+
+End
+

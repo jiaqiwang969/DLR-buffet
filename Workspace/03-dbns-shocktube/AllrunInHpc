@@ -1,0 +1,17 @@
+#!/bin/bash
+
+#~~~~~~~~~~~~~~~~~~~~~#
+fluxScheme='roe'  #beta/hllc/roe/rusanov
+limiter="firstOrder" #BarthJespersen/Venkatakrishnan/firstOrder
+point='572'
+
+caseName=00-test-$point-$fluxScheme-$limiter
+
+cp -rf 00-basic-572 $caseName
+cd $caseName
+
+sed -i 's,^flux.*,flux    '"$fluxScheme"';,' ./system/fvSchemes
+sed -i 's,^limiter.*,limiter    '"$limiter"';,' ./system/fvSchemes
+
+bash Allrun
+

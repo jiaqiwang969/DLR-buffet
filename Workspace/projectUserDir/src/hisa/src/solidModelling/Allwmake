@@ -1,4 +1,0 @@
-#! /bin/bash
-
-wmake modal
-wmake modal/getPatchPoints

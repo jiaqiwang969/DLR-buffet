@@ -1,6 +1,0 @@
-pseudotimeControl/pseudotimeControl.C
-hisaModule.C
-hisaModuleTimestepping.C
-
-LIB = $(FOAM_USER_LIBBIN)/libhisaModule
-

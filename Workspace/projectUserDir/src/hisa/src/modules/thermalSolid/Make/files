@@ -1,5 +1,0 @@
-thermalSolidModule.C
-solidRegionDiffNo.C
-
-LIB = $(FOAM_USER_LIBBIN)/libthermalSolidModule
-

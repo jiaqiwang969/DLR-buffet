@@ -1,0 +1,70 @@
+#!/bin/bash
+
+#SBATCH --job-name=runFoam-V1.12
+#SBATCH --partition=64c512g
+#SBATCH -n 1
+#SBATCH --ntasks-per-node=64
+#SBATCH --output=%j.out
+#SBATCH --error=%j.err
+
+#1. Defining the container to be used
+theRepo=/dssg/home/acct-medgm/medgm/00-sif
+theContainerBaseName=openfoam
+theVersion=v2006
+theProvider=wjq
+theImage=$theRepo/$theContainerBaseName-$theVersion-$theProvider.sif
+ 
+#2. Project Name
+project_name=03-hisa-shocktube
+
+#2. Control parameter
+theSolver=hisa
+foam_fluxSchemes="AUSMPlusUp"
+
+#2. Project Name
+caseName=S10-HLLC
+
+projectUserDir=$SLURM_SUBMIT_DIR/../../projectUserDir
+baseWorkingDir=$SLURM_SUBMIT_DIR/../../run
+caseDir=$baseWorkingDir/$caseName
+logsDir=$caseDir/logs/pre
+
+
+#4. Copy the file to run
+mkdir -p $baseWorkingDir
+cp -rf $SLURM_SUBMIT_DIR/../../test_cases/$project_name  $caseDir
+
+# create log directory
+if ! [ -d $logsDir ]; then
+   mkdir -p $logsDir
+fi
+
+
+#5. Defining OpenFOAM controlDict settings for Pawsey Best Practices
+echo "----------> cd to $caseDir"
+cd $caseDir
+rm -rf *.err
+rm -rf *.out
+
+echo "----------> restore0Dir"
+mv 0_org 0
+
+#echo "----------> Decompose"
+#singularity exec -B $projectUserDir:/home/ofuser/OpenFOAM/ofuser-$theVersion $theImage decomposePar -force 2>&1 | tee $logsDir/log.decomposePar2.$SLURM_JOBID
+#runApplication blockMesh -dict system/blockMeshDict
+
+echo "----------> run the blockMesh"
+singularity exec -B $projectUserDir:/home/ofuser/OpenFOAM/ofuser-$theVersion $theImage blockMesh -dict system/blockMeshDict  2>&1 | tee $logsDir/log.blockMesh.$SLURM_JOBID
+
+
+echo "----------> run the setFields"
+singularity exec -B $projectUserDir:/home/ofuser/OpenFOAM/ofuser-$theVersion $theImage setFields  2>&1 | tee $logsDir/log.setFields.$SLURM_JOBID
+
+echo "----------> run the solver"
+#srun --mpi=pmi2 -parallel
+singularity exec -B $projectUserDir:/home/ofuser/OpenFOAM/ofuser-$theVersion $theImage $theSolver  2>&1 | tee $logsDir/log.trasient1theSolver.$SLURM_JOBID
+
+echo "----------> run the postProcess"
+singularity exec -B $projectUserDir:/home/ofuser/OpenFOAM/ofuser-$theVersion $theImage postProcess -func 'mag(U)' 2>&1 | tee $logsDir/log.postProcess1.$SLURM_JOBID
+singularity exec -B $projectUserDir:/home/ofuser/OpenFOAM/ofuser-$theVersion $theImage postProcess -func 'components(U)' 2>&1 | tee $logsDir/log.postProcess1.$SLURM_JOBID
+singularity exec -B $projectUserDir:/home/ofuser/OpenFOAM/ofuser-$theVersion $theImage postProcess -func sampleDict 2>&1 | tee $logsDir/log.postProcess1.$SLURM_JOBID

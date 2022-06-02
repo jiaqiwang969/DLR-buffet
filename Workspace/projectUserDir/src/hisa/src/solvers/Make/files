@@ -1,5 +1,0 @@
-solver/solver.C
-
-gmres/gmres.C
-
-LIB = $(FOAM_USER_LIBBIN)/libhisaSolvers

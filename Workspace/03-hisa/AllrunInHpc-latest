@@ -1,0 +1,139 @@
+#!/bin/bash
+
+#SBATCH --job-name=runFoam-V1.12
+#SBATCH --partition=64c512g
+#SBATCH -n 64
+#SBATCH --ntasks-per-node=64
+#SBATCH --output=%j.out
+#SBATCH --error=%j.err
+
+#1. Defining the container to be used
+theRepo=/dssg/home/acct-medgm/medgm/00-sif
+theContainerBaseName=openfoam
+theVersion=v2006
+theProvider=wjq
+theImage=$theRepo/$theContainerBaseName-$theVersion-$theProvider.sif
+ 
+#2. Project Name
+project_name=03-hisa
+foam_numberOfSubdomains=64
+
+#2. Control parameter
+theSolver=hisa
+foam_MachInlet="1.12"     
+foam_MacsOutlet="0.7"
+foam_polyMesh_type="short"
+foam_writeFormat="binary"
+foam_fluxSchemes="AUSMPlusUp"
+
+#2. Steady parameter
+foam_steady_writeInterval="5000"
+foam_steady_maxCo="1.0e20"
+foam_steady_endTime="5000"
+foam_steady_deltaT="1"
+foam_steady_ddtScheme="steadyState"
+foam_steady_writeControl="timeStep"
+foam_steady_startFrom="startTime"
+foam_steady_purgeWrite="0"
+foam_steady_numberOfSubdomains=$foam_numberOfSubdomains
+foam_steady_writeFormat=$foam_writeFormat
+foam_steady_runTimeModifiable="false"
+foam_steady_fluxSchemes=$foam_fluxSchemes
+foam_steady_polyMesh_type=$foam_polyMesh_type
+foam_steady_MachInlet=$foam_MachInlet
+foam_steady_MacsOutlet=$foam_MacsOutlet
+
+# Relax first to speed up
+# zeroGradient boundary
+#2. Transient1 parameter
+foam_transient1_writeInterval="0.0001"
+foam_transient1_maxCo="45" 
+foam_transient1_endTime="0.0001" 
+foam_transient1_deltaT="5.0e-7"
+foam_transient1_ddtScheme="backward" 
+foam_transient1_writeControl="adjustableRunTime"  
+foam_transient1_runTimeModifiable="true"
+foam_transient1_startFrom="latestTime"
+foam_transient1_purgeWrite="0"
+foam_transient1_numberOfSubdomains=$foam_numberOfSubdomains
+foam_transient1_writeFormat=$foam_writeFormat
+foam_transient1_fluxSchemes=$foam_fluxSchemes
+foam_transient1_polyMesh_type=$foam_polyMesh_type
+foam_transient1_MachInlet=$foam__MachInlet
+foam_transient1_MacsOutlet=$foam__MacsOutlet
+
+# Need to choose boundary condition
+#2. Transient2 parameter
+foam_transient2_writeInterval="1e-6"
+foam_transient2_maxCo="1"
+foam_transient2_endTime="0.01"
+foam_transient2_deltaT="5.0e-8"
+foam_transient2_ddtScheme="backward"
+foam_transient2_writeControl="adjustableRunTime"
+foam_transient2_runTimeModifiable="true"
+foam_transient2_startFrom="latestTime"
+foam_transient2_purgeWrite="0"
+foam_transient2_numberOfSubdomains=$foam_numberOfSubdomains
+foam_transient2_writeFormat=$foam_writeFormat
+foam_transient2_fluxSchemes=$foam_fluxSchemes
+foam_transient2_polyMesh_type=$foam_polyMesh_type
+foam_transient2_MachInlet=$foam__MachInlet
+foam_transient2_MacsOutlet=$foam__MacsOutlet
+
+# Select boundary condition 
+#1-ofBasic1,2-ofBasic2,3-charac,4-NRBC,5-fixValue
+foam_transient2_pInletBoundary=3
+foam_transient2_TInletBoundary=3
+foam_transient2_UInletBoundary=3
+foam_transient2_pOutletBoundary=3
+foam_transient2_TOutletBoundary=3
+foam_transient2_UOutletBoundary=3
+
+#2. Project Name
+caseName=S01-hisa-1.12-0.7-AUSMPlusUp-5000-maxCo45-5.0e-7-short-333333
+
+
+polyMeshName=polyMesh-igg-final-$foam_polyMesh_type
+
+
+projectUserDir=$SLURM_SUBMIT_DIR/../../projectUserDir
+baseWorkingDir=$SLURM_SUBMIT_DIR/../../run
+caseDir=$baseWorkingDir/$caseName
+logsDir=$caseDir/logs/pre
+
+
+
+#5. Defining OpenFOAM controlDict settings for Pawsey Best Practices
+echo "----------> cd to $caseDir"
+cd $caseDir
+
+
+
+
+echo "----------> Insert associated controlDict/fvSchemes"
+
+sed -i 's,^writeFormat.*,writeFormat    '"$foam_transient2_writeFormat"';,' ./system/controlDict
+sed -i 's,^runTimeModifiable.*,runTimeModifiable    '"$foam_transient2_runTimeModifiable"';,' ./system/controlDict
+sed -i 's,^purgeWrite.*,purgeWrite    '"$foam_transient2_purgeWrite"';,' ./system/controlDict
+sed -i 's,^startFrom.*,startFrom    '"$foam_transient2_startFrom"';,' ./system/controlDict
+sed -i 's,^deltaT.*,deltaT    '"$foam_transient2_deltaT"';,' ./system/controlDict
+sed -i 's,^writeInterval.*,writeInterval    '"$foam_transient2_writeInterval"';,' ./system/controlDict
+sed -i 's,^writeControl.*,writeControl    '"$foam_transient2_writeControl"';,' ./system/controlDict
+sed -i 's,^purgeWrite.*,purgeWrite    '"$foam_transient2_purgeWrite"';,' ./system/controlDict
+sed -i 's,^maxCo.*,maxCo    '"$foam_transient2_maxCo"';,' ./system/controlDict
+sed -i 's,^endTime.*,endTime    '"$foam_transient2_endTime"';,' ./system/controlDict
+sed -i 's,^numberOfSubdomains.*,numberOfSubdomains    '"$foam_transient2_numberOfSubdomains"';,' ./system/decomposeParDict
+sed -i 's,^fluxScheme.*,fluxScheme    '"$foam_transient2_fluxSchemes"';,' ./system/fvSchemes
+sed -i 's,steadyState,'"$foam_transient2_ddtScheme"','  ./system/fvSchemes
+sed -i 's,dualTime rPseudoDeltaT,,' ./system/fvSchemes 
+
+
+rm -rf process*
+
+echo "----------> Decompose"
+singularity exec -B $projectUserDir:/home/ofuser/OpenFOAM/ofuser-$theVersion $theImage decomposePar -force -latestTime 2>&1 | tee $logsDir/log.decomposePar2.$SLURM_JOBID
+
+
+echo "----------> run the transient2 $theSolver"
+srun --mpi=pmi2 singularity exec -B $projectUserDir:/home/ofuser/OpenFOAM/ofuser-$theVersion $theImage $theSolver -parallel 2>&1 | tee $logsDir/log.trasient2theSolver.$SLURM_JOBID
+

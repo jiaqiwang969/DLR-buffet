@@ -1,0 +1,83 @@
+/*---------------------------------------------------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | foam-extend: Open Source CFD                    |
+|  \\    /   O peration     | Version:     4.0                                |
+|   \\  /    A nd           | Web:         http://www.foam-extend.org         |
+|    \\/     M anipulation  | For copyright notice see file Copyright         |
+\*---------------------------------------------------------------------------*/
+Build    : 4.0-268bb07d15d8
+Exec     : blockMesh
+Date     : Apr 26 2022
+Time     : 12:21:14
+Host     : node358.pi.sjtu.edu.cn
+PID      : 1638348
+CtrlDict : "/dssg/home/acct-medgm/medgm/06-DLR-buffet/Workspace/test_cases/03-dbns-shocktube/00-test-600-roe-firstOrder/system/controlDict"
+Case     : /dssg/home/acct-medgm/medgm/06-DLR-buffet/Workspace/test_cases/03-dbns-shocktube/00-test-600-roe-firstOrder
+nProcs   : 1
+SigFpe   : Enabling floating point exception trapping (FOAM_SIGFPE).
+
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+Create time
+
+
+Creating block mesh from
+    "/dssg/home/acct-medgm/medgm/06-DLR-buffet/Workspace/test_cases/03-dbns-shocktube/00-test-600-roe-firstOrder/constant/polyMesh/blockMeshDict"
+
+Creating curved edges
+Creating topology blocks
+Creating topology patches
+
+Reading patches section
+
+Creating block mesh topology
+
+Reading physicalType from existing boundary file
+
+Default patch type set to empty
+--> FOAM Warning : 
+    From function polyMesh::polyMesh(... construct from shapes...)
+    in file meshes/polyMesh/polyMeshFromShapeMesh.C at line 903
+    Found 2 undefined faces in mesh; adding to default patch.
+
+Check topology
+
+	Basic statistics
+		Number of internal faces : 0
+		Number of boundary faces : 6
+		Number of defined boundary faces : 6
+		Number of undefined boundary faces : 0
+	Checking patch -> block consistency
+
+Creating block offsets
+Creating merge list .
+
+Creating polyMesh from blockMesh
+Creating patches
+Creating cells
+Creating points with scale 1
+    Block 0 cell size :
+        i : 0.00166667 .. 0.00166667
+        j : 0.1 .. 0.1
+        k : 0.1 .. 0.1
+
+
+Writing polyMesh
+----------------
+Mesh Information
+----------------
+  boundingBox: (0 0 0) (1 0.1 0.1)
+  nPoints: 2404
+  nCells: 600
+  nFaces: 3001
+  nInternalFaces: 599
+----------------
+Patches
+----------------
+  patch 0 (start: 599 size: 1) name: inlet
+  patch 1 (start: 600 size: 1) name: outlet
+  patch 2 (start: 601 size: 600) name: bottom
+  patch 3 (start: 1201 size: 600) name: top
+  patch 4 (start: 1801 size: 1200) name: defaultFaces
+
+End
+
