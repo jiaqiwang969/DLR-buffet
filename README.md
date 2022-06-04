@@ -36,3 +36,4 @@ Parameter: T=0.0001s/foam_divSchemes="SuperBeeV"/NRBCx/yPlus_max=1.0680066/64cor
 - DLR-compressor: better to enlarge the upstream channel
 <img src="https://cdn.mathpix.com/snip/images/EwGO2iP8OZrG_aLwgY2W7RzI1mLizkCCj2_9UJTCk_8.original.fullsize.png" />
 <img src="https://cdn.mathpix.com/snip/images/YwxuxBPoW6K1iEF1JKlGbKzZO_CtuimX5UTBu-niD0Y.original.fullsize.png" />
+<img src="https://cdn.mathpix.com/snip/images/vDFwkqAIId0aSXhd9ji53H8UPbIBQkZkv60RMrlrlKk.original.fullsize.png" />
