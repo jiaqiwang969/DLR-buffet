@@ -1,6 +1,6 @@
 # cascade-shock_buffet Project:
 - Aim: Reproduce the experiment result in paper “High‐Speed PIV of shock boundary layer interactions in the transonic buffet flow of a compressor cascade”
-- Ref: Andre Weiner/naca0012--shock_buffet 
+- Ref: Andre Weiner/naca0012--shock_buffet , Ayyoob Zarmehri:http://www.tfd.chalmers.se/~hani/kurser/OS_CFD/#YEAR_2020
 - Sponsor：Dong
 - Acknowledge：Song Moru
 
