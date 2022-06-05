@@ -1,6 +1,6 @@
 # cascade-shock_buffet Project:
 - Aim: Reproduce the experiment result in paper “High‐Speed PIV of shock boundary layer interactions in the transonic buffet flow of a compressor cascade”
-- Ref: Andre Weiner/naca0012--shock_buffet , [turbulence mode](https://github.com/jiaqiwang969/SSTtransition-turbulence-model) [AeroAcoustics solver](https://github.com/jiaqiwang969/Hybrid-Methods-in-Openfoam)
+- Ref: 1. Andre Weiner/naca0012--shock_buffet , 2. [turbulence mode](https://github.com/jiaqiwang969/SSTtransition-turbulence-model) , 3. [AeroAcoustics solver](https://github.com/jiaqiwang969/Hybrid-Methods-in-Openfoam)
 - Sponsor：Dong
 - Acknowledge：Song Moru
 
