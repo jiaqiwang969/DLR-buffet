@@ -1,0 +1,117 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  v2012                                 |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      createPatchDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+pointSync false;
+
+
+
+// Patches to create.
+patches
+(
+    {
+        // Name of new patch
+        name INLET;
+
+        // Dictionary to construct new patch from
+        patchInfo
+        {
+            type patch;
+        }
+
+        // How to construct: either from 'patches' or 'set'
+        constructFrom patches;
+
+        // If constructFrom = patches : names of patches. Wildcards allowed.
+        patches (row_1_INFLOW_8);
+
+    }
+    {
+        // Name of new patch
+        name OUTLET;
+
+        // Dictionary to construct new patch from
+        patchInfo
+        {
+            type patch;
+        }
+
+        // How to construct: either from 'patches' or 'set'
+        constructFrom patches;
+
+        // If constructFrom = patches : names of patches. Wildcards allowed.
+        patches (row_1_OUTFLOW_1);
+
+    }
+
+
+    {
+        // Name of new patch
+        name Blade;
+
+        // Dictionary to construct new patch from
+        patchInfo
+        {
+            type wall;
+        }
+
+        // How to construct: either from 'patches' or 'set'
+        constructFrom patches;
+
+        // If constructFrom = patches : names of patches. Wildcards allowed.
+        patches (row_1_Main_Blade_17 row_1_Main_Blade_18);
+
+    }
+
+    {
+        // Name of new patch
+        name back;
+
+        // Dictionary to construct new patch from
+        patchInfo
+        {
+            type empty;
+        }
+
+        // How to construct: either from 'patches' or 'set'
+        constructFrom patches;
+
+        // If constructFrom = patches : names of patches. Wildcards allowed.
+        patches (row_1_HUB_UPSTREAM_1_9 row_1_HUB_13 row_1_HUB_15 row_1_HUB_19 row_1_HUB_23 row_1_HUB_6 row_1_HUB_DOWNSTREAM_1_2);
+
+    }
+    {
+        // Name of new patch
+        name front;
+
+        // Dictionary to construct new patch from
+        patchInfo
+        {
+            type empty;
+        }
+
+        // How to construct: either from 'patches' or 'set'
+        constructFrom patches;
+
+        // If constructFrom = patches : names of patches. Wildcards allowed.
+        patches  (row_1_SHROUD_UPSTREAM_1_10 row_1_SHROUD_14 row_1_SHROUD_16 row_1_SHROUD_20 row_1_SHROUD_24 row_1_SHROUD_7 row_1_SHROUD_DOWNSTREAM_1_3);
+
+    }
+
+
+
+);
+
+// ************************************************************************* //

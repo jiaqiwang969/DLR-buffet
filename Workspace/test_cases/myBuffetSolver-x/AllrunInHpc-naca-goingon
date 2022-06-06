@@ -1,0 +1,22 @@
+#!/bin/bash
+
+#SBATCH --job-name=runFoam-V1.12
+#SBATCH --partition=64c512g
+#SBATCH -n 64
+#SBATCH --ntasks-per-node=64
+#SBATCH --output=%j.out
+#SBATCH --error=%j.err
+
+
+#0. modify the dt first!!
+#1. Defining the container to be used
+theRepo=/dssg/home/acct-medgm/medgm/00-sif
+theContainerBaseName=openfoam
+theVersion=v2006
+theProvider=wjq
+theImage=$theRepo/$theContainerBaseName-$theVersion-$theProvider.sif
+projectUserDir=$SLURM_SUBMIT_DIR/../../projectUserDir 
+theSolver=hisa
+
+echo "----------> run the transient2 $theSolver"
+srun --mpi=pmi2 singularity exec -B $projectUserDir:/home/ofuser/OpenFOAM/ofuser-$theVersion $theImage $theSolver -parallel 2>&1 | tee logs/pre/log.trasient2theSolver.goingon
