@@ -2,28 +2,13 @@
 
 Info<< "Reading thermophysical properties\n" << endl;
 
-autoPtr<fluidThermo> pThermo
+autoPtr<psiThermo> pThermo
 (
-    fluidThermo::New(mesh)
+    psiThermo::New(mesh)
 );
-fluidThermo& thermo = pThermo();
-thermo.validate(args.executable(), "h", "e");
+psiThermo& thermo = pThermo();
 
-volScalarField& p = thermo.p();
-volScalarField& T = thermo.T();
-
-volScalarField rho
-(
-    IOobject
-    (
-        "rho",
-        runTime.timeName(),
-        mesh,
-        IOobject::READ_IF_PRESENT,
-        IOobject::AUTO_WRITE
-    ),
-    thermo.rho()
-);
+volScalarField& e = thermo.he();
 
 Info<< "Reading field U\n" << endl;
 volVectorField U
@@ -39,11 +24,70 @@ volVectorField U
     mesh
 );
 
-#include "compressibleCreatePhi.H"
+volScalarField rho
+(
+    IOobject
+    (
+        "rho",
+        runTime.timeName(),
+        mesh,
+        IOobject::NO_READ,
+        IOobject::AUTO_WRITE
+    ),
+    thermo.rho()
+);
 
-pressureControl pressureControl(p, rho, pimple.dict(), false);
+volVectorField rhoU
+(
+    IOobject
+    (
+        "rhoU",
+        runTime.timeName(),
+        mesh,
+        IOobject::NO_READ,
+        IOobject::NO_WRITE
+    ),
+    rho*U
+);
 
-mesh.setFluxRequired(p.name());
+volScalarField rhoE
+(
+    IOobject
+    (
+        "rhoE",
+        runTime.timeName(),
+        mesh,
+        IOobject::NO_READ,
+        IOobject::NO_WRITE
+    ),
+    rho*(e + 0.5*magSqr(U))
+);
+
+surfaceScalarField pos
+(
+    IOobject
+    (
+        "pos",
+        runTime.timeName(),
+        mesh
+    ),
+    mesh,
+    dimensionedScalar("pos", dimless, 1.0)
+);
+
+surfaceScalarField neg
+(
+    IOobject
+    (
+        "neg",
+        runTime.timeName(),
+        mesh
+    ),
+    mesh,
+    dimensionedScalar("neg", dimless, -1.0)
+);
+
+surfaceScalarField phi("phi", fvc::flux(rhoU));
 
 Info<< "Creating turbulence model\n" << endl;
 autoPtr<compressible::turbulenceModel> turbulence
@@ -57,7 +101,6 @@ autoPtr<compressible::turbulenceModel> turbulence
     )
 );
 
-#include "createDpdt.H"
 
 
 Info<< "Creating field pMean\n" << endl;
@@ -103,6 +146,9 @@ volScalarField pAcoustic
     mesh
 );
 
+
+
+
 Info<< "Creating field cInf\n" << endl;
 volScalarField cInf
 (
@@ -145,11 +191,3 @@ dimensionedScalar nPass
 );
 
 
-#include "createK.H"
-
-#include "createMRF.H"
-
-const dimensionedScalar rhoMax("rhoMax", dimDensity, GREAT, pimple.dict());
-const dimensionedScalar rhoMin("rhoMin", dimDensity, Zero, pimple.dict());
-
-#include "createFvOptions.H"
