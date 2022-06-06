@@ -19,7 +19,7 @@ project_name=myBuffetSolver
 foam_numberOfSubdomains="4"
 
 #2. Control parameter
-theSolver="hisa"
+theSolver="rhoCentralFoam"
 foam_MachInlet="1.05"     
 foam_MacsOutlet="0.71"
 foam_polyMesh_type="wedge"    #"long2"

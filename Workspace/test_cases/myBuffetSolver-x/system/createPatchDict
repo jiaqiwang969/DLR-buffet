@@ -1,0 +1,81 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  v2012                                 |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      createPatchDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+pointSync false;
+
+patches
+(
+    {
+        name INLET;
+        patchInfo
+        {
+            type patch;
+        }
+
+        constructFrom patches;
+        patches (row_1_INFLOW_8);
+
+    }
+    {
+        name OUTLET;
+        patchInfo
+        {
+            type patch;
+        }
+
+        constructFrom patches;
+        patches (row_1_OUTFLOW_1);
+
+    }
+
+
+    {
+        name Blade;
+        patchInfo
+        {
+            type wall;
+        }
+        constructFrom patches;
+        patches (row_1_Main_Blade_17 row_1_Main_Blade_18);
+
+    }
+
+    {
+        name front;
+        patchInfo
+        {
+            type empty;
+        }
+
+        constructFrom patches;
+        //patches (row_1_HUB_UPSTREAM_1_2 row_1_HUB_13 row_1_HUB_15 row_1_HUB_19 row_1_HUB_23 row_1_HUB_6 row_1_HUB_DOWNSTREAM_1_9);
+        patches (row_1_HUB);
+    }
+
+    {
+        name back;
+        patchInfo
+        {
+            type empty;
+        }
+        constructFrom patches;
+        //patches (row_1_SHROUND_UPSTREAM_1_3 row_1_SHROUND_14 row_1_SHROUND_16 row_1_SHROUND_20 row_1_SHROUND_24 row_1_SHROUND_DOWNSTREAM_1_10);
+        patches (row_1_SHROUD);
+    }
+
+);
+
+// ************************************************************************* //
