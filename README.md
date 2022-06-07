@@ -2,7 +2,7 @@
 - Aim: Reproduce the experiment result in paper “High‐Speed PIV of shock boundary layer interactions in the transonic buffet flow of a compressor cascade”
 - Ref: 1. Andre Weiner/naca0012--shock_buffet , 2. [turbulence model](https://github.com/jiaqiwang969/SSTtransition-turbulence-model) , 3. [AeroAcoustics solver](https://github.com/jiaqiwang969/Hybrid-Methods-in-Openfoam) 4. [NSCBC](https://github.com/jiaqiwang969/NSCBC-openfoam) 5. [dbns](https://github.com/ilyapopov/dbns-port/blob/259e46a7b4f96301f872498f950702aabef4ed92/dbnsFoam/dbnsFoam.C) 6. thesis-Linear aeroacoustic solver in OpenFOAM
 - Sponsor：Dong
-- Acknowledge：Song Moru
+- Acknowledge：Song Moru, Cheng Long
 
 
 
@@ -30,7 +30,7 @@ solution1: choose better limiter to alleviate dispersion effect
 <img src="https://cdn.mathpix.com/snip/images/jlel6iby3EftNmMgQbaRwX_sasyTB8jxKytpoEKPbVk.original.fullsize.png" width="340px">
 <img src="https://cdn.mathpix.com/snip/images/wvuHTNBzri8Q1RcADlwxndsthXQqjBNUUjwM4MoyrGQ.original.fullsize.png" width="340px">
 
-<img src="https://cdn.mathpix.com/snip/images/3MMa6EW23_vM8WpSg8z3hSI3IuwzC4Xco9kKN7DjhFQ.original.fullsize.png" width="340px">
+<img src="https://cdn.mathpix.com/snip/images/fplVunmCng73ChZb_SO8JAAOLQ6xp1wboAaoEsbUUYk.original.fullsize.png" width="340px">
 
 - same effect also find in tailing region
 <img src="https://cdn.mathpix.com/snip/images/5-CmkH4Jk3X_ZMMmvwS7JOLL7lc7mKp4j3UK24TsKVc.original.fullsize.png" width="240px">
