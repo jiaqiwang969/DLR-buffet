@@ -28,6 +28,7 @@ solution1: choose better limiter to alleviate dispersion effect
 
 - testcase02: also instability in the shear layer （Is it a numerically similar instability with increased grid and denser stripes？）
 <img src="https://cdn.mathpix.com/snip/images/jlel6iby3EftNmMgQbaRwX_sasyTB8jxKytpoEKPbVk.original.fullsize.png" width="340px">
+<img src="https://cdn.mathpix.com/snip/images/wvuHTNBzri8Q1RcADlwxndsthXQqjBNUUjwM4MoyrGQ.original.fullsize.png" width="340px">
 
 - same effect also find in tailing region
 <img src="https://cdn.mathpix.com/snip/images/5-CmkH4Jk3X_ZMMmvwS7JOLL7lc7mKp4j3UK24TsKVc.original.fullsize.png" width="240px">
