@@ -22,7 +22,8 @@ Parameter: T=0.0001s/foam_divSchemes="SuperBeeV"/NRBCx/yPlus_max=1.0680066/64cor
 ### Exploring issues
 
 - Instability
-choose better limiter to alleviate dispersion effect
+
+solution1: choose better limiter to alleviate dispersion effect
 <img src="https://cdn.mathpix.com/snip/images/cSA0LK_DRCgxbaZwfoskt4tkcWjpIwyjpcwmE_sjL5E.original.fullsize.png" width="640px">
 
 - testcase02: also instability in the shear layer
