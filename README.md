@@ -26,8 +26,8 @@ Parameter: T=0.0001s/foam_divSchemes="SuperBeeV"/NRBCx/yPlus_max=1.0680066/64cor
 solution1: choose better limiter to alleviate dispersion effect
 <img src="https://cdn.mathpix.com/snip/images/cSA0LK_DRCgxbaZwfoskt4tkcWjpIwyjpcwmE_sjL5E.original.fullsize.png" width="640px">
 
-- testcase02: also instability in the shear layer
-<img src="https://cdn.mathpix.com/snip/images/oVBD1fnkNGCAAl0veONSRVkDXUTD1YvdGDckPhipBuc.original.fullsize.png" width="640px">
+- testcase02: also instability in the shear layer （Is it a numerically similar instability with increased grid and denser stripes？）
+<img src="https://cdn.mathpix.com/snip/images/jlel6iby3EftNmMgQbaRwX_sasyTB8jxKytpoEKPbVk.original.fullsize.png" width="340px">
 
 - same effect also find in tailing region
 <img src="https://cdn.mathpix.com/snip/images/5-CmkH4Jk3X_ZMMmvwS7JOLL7lc7mKp4j3UK24TsKVc.original.fullsize.png" width="240px">
