@@ -60,6 +60,7 @@ maxDeltaT       1e-5;
 functions
 {
     #include "FOMachNo"
+    #include "FOvorticity"
 //    #include "FOyPlus"
     #includeFunc "writeCellCentres"
 //    #includeFunc "wallShearStress"
@@ -69,7 +70,7 @@ functions
 //    #include "FOpressure"
 //    #include "FOsurfaceSample"
 //    #include "FOIDDES"
-    fieldAverage
+/*    fieldAverage
     {
         type            fieldAverage;
         libs            (fieldFunctionObjects);
@@ -92,7 +93,7 @@ functions
 
         );
     }
-
+*/
 }
 
 
