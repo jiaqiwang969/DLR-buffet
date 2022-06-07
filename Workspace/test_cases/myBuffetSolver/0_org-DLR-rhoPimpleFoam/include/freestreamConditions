@@ -1,0 +1,46 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  2.2.0                                 |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+
+
+gamma           1.4;
+R               287.05;
+beta0           60.6;
+turning         9.9;
+ptotal          1.1e5;
+beta1         #eval{ degToRad($beta0) };
+cos_beta1     #eval{ cos($beta1) };
+sin_beta1     #eval{ sin($beta1) };
+beta2         #eval{ degToRad($beta0-$turning)};
+cos_beta2     #eval{ cos($beta2) };
+sin_beta2     #eval{ sin($beta2) };
+
+Mach            1.05;
+Tinlet          293;
+soundSpeedInlet #eval{sqrt($gamma*$R*$Tinlet)};
+vinlet          #eval{$soundSpeedInlet*$Mach};
+pinlet          #eval{$ptotal/(1+0.5*sqr($vinlet)/$R/$Tinlet)};
+rhoinlet        #eval{$pinlet/$R/$Tinlet};
+Uinletx         #eval{ $vinlet*$cos_beta1 };
+Uinlety         #eval{ $vinlet*$sin_beta1 };
+Uinlet          ($Uinletx $Uinlety 0);
+Ttotal          #eval{$Tinlet + $Tinlet*$Mach*$Mach*($gamma-1)/2};
+
+Macs            0.7;
+Toutlet         340;
+soundSpeedOutlet    #eval{sqrt($gamma*$R*$Toutlet)};
+voutlet             #eval{$soundSpeedOutlet*$Macs};
+Uoutletx            #eval{ $voutlet*$cos_beta2 };
+Uoutlety            #eval{ $voutlet*$sin_beta2 };
+Uoutlet             ($Uoutletx $Uoutlety 0);
+ptotal2p            #eval{ pow(1.0 + sqr($Macs)*($gamma-1)/2,$gamma/($gamma-1.0)) };
+poutlet             #eval{$ptotal/$ptotal2p};
+
+#inputMode   merge
+
+// ************************************************************************* //
+

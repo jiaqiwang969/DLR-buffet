@@ -2,7 +2,7 @@
 
 #SBATCH --job-name=runFoam-V1.12
 #SBATCH --partition=64c512g
-#SBATCH -n 4
+#SBATCH -n 64
 #SBATCH --ntasks-per-node=64
 #SBATCH --output=%j.out
 #SBATCH --error=%j.err
@@ -16,15 +16,14 @@ theImage=$theRepo/$theContainerBaseName-$theVersion-$theProvider.sif
  
 #2. Project Name
 project_name=myBuffetSolver
-foam_numberOfSubdomains="1"
+foam_numberOfSubdomains="64"
 
 #2. Control parameter
+foam_case="chamfer"
 theSolver="rhoCentralFoam"
 foam_MachInlet="1.05"     
 foam_MacsOutlet="0.71"
-foam_polyMesh_type="wedge"    #"long2"
 foam_writeFormat="binary"
-foam_case="wedge"
 
 #For rhoSimpleFoam:Kurganov
 #For myFoam:hllcLMFlux,betaFlux,AUSMplusUpFlux
@@ -35,26 +34,26 @@ foam_case="wedge"
 
 #2. Transient1 parameter
 foam_transient1_writeInterval="0.5e-4"
-foam_transient1_maxCo="0.1" 
+foam_transient1_maxCo="0.5" 
 foam_transient1_endTime="0.1" 
 foam_transient1_deltaT="1.0e-8"
-foam_transient1_ddtScheme="backward"  #"backward" 
-foam_transient1_writeControl="runTime" #"adjustableRunTime"  
+foam_transient1_ddtScheme="Euler"  #"backward" 
+foam_transient1_writeControl="adjustableRunTime"    #"runTime"   
 foam_transient1_runTimeModifiable="true"
 foam_transient1_startFrom="latestTime"
 foam_transient1_purgeWrite="0"
 foam_transient1_numberOfSubdomains=$foam_numberOfSubdomains
 foam_transient1_writeFormat=$foam_writeFormat
 foam_transient1_fluxSchemes=$foam_fluxSchemes
-foam_transient1_polyMesh_type=$foam_polyMesh_type
+foam_transient1_polyMesh_type=$foam_case
 
 #2. Project Name
-caseName=C1-local-$theSolver-maxCo$foam_transient1_maxCo-$foam_case-$foam_transient1_ddtScheme
-polyMeshName=polyMesh-igg-final-$foam_polyMesh_type
+caseName=S14-x2-upwind-vorticity-$theSolver-maxCo$foam_transient1_maxCo-$foam_case-$foam_transient1_ddtScheme
+polyMeshName=polyMesh-igg-final-$foam_case
 
 
-projectUserDir=$SLURM_SUBMIT_DIR/../../projectUserDir
-baseWorkingDir=$SLURM_SUBMIT_DIR/../../run
+projectUserDir=$(pwd)/../../projectUserDir
+baseWorkingDir=$(pwd)/../../run
 caseDir=$baseWorkingDir/$caseName
 logsDir=$caseDir/logs/pre
 
@@ -63,7 +62,7 @@ logsDir=$caseDir/logs/pre
 #4. Copy the file to run
 mkdir -p $baseWorkingDir
 #rm -rf $baseWorkingDir/$caseName
-cp -rf $SLURM_SUBMIT_DIR/../../test_cases/$project_name  $caseDir
+cp -rf $(pwd)/../../test_cases/$project_name  $caseDir
 
 # create log directory
 if ! [ -d $logsDir ]; then
@@ -108,13 +107,13 @@ sed -i 's,^numberOfSubdomains.*,numberOfSubdomains    '"$foam_transient1_numberO
 sed -i 's,steadyState,'"$foam_transient1_ddtScheme"','  ./system/fvSchemes
 
 
-	echo "----------> Decompose"
-	singularity exec -B $projectUserDir:/home/ofuser/OpenFOAM/ofuser-$theVersion $theImage decomposePar -force 2>&1 | tee $logsDir/log.decomposePar2.$SLURM_JOBID
+echo "----------> Decompose"
+singularity exec -B $projectUserDir:/home/ofuser/OpenFOAM/ofuser-$theVersion $theImage decomposePar -force 2>&1 | tee $logsDir/log.decomposePar2.$SLURM_JOBID
 
-	echo "----------> run the transient1 $theSolver"
-	srun --mpi=pmi2 singularity exec -B $projectUserDir:/home/ofuser/OpenFOAM/ofuser-$theVersion $theImage $theSolver -parallel 2>&1 | tee $logsDir/log.trasient1theSolver.$SLURM_JOBID
+echo "----------> run the transient1 $theSolver"
+srun --mpi=pmi2 singularity exec -B $projectUserDir:/home/ofuser/OpenFOAM/ofuser-$theVersion $theImage $theSolver -parallel 2>&1 | tee $logsDir/log.trasient1theSolver.$SLURM_JOBID
 
-
+#local-mode
 #singularity exec -B $projectUserDir:/home/ofuser/OpenFOAM/ofuser-$theVersion $theImage decomposePar -force 2>&1 | tee $logsDir/log.decomposePar2.$SLURM_JOBID
 
 #singularity exec -B $projectUserDir:/home/ofuser/OpenFOAM/ofuser-$theVersion $theImage $theSolver  2>&1 | tee $logsDir/log.decomposePar2.$SLURM_JOBID
