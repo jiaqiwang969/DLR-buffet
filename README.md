@@ -1,15 +1,24 @@
-# cascade-shock_buffet Project:
+# cascade-shock_buffet Project: STEP BY STEP
 - Aim: Reproduce the experiment result in paper “High‐Speed PIV of shock boundary layer interactions in the transonic buffet flow of a compressor cascade”
 - Ref: 1. Andre Weiner/naca0012--shock_buffet , 2. [turbulence model](https://github.com/jiaqiwang969/SSTtransition-turbulence-model) , 3. [AeroAcoustics solver](https://github.com/jiaqiwang969/Hybrid-Methods-in-Openfoam) 4. [NSCBC](https://github.com/jiaqiwang969/NSCBC-openfoam) 5. [dbns](https://github.com/ilyapopov/dbns-port/blob/259e46a7b4f96301f872498f950702aabef4ed92/dbnsFoam/dbnsFoam.C) 6. thesis-Linear aeroacoustic solver in OpenFOAM 7. [Axis-2Dbump](https://github.com/jiaqiwang969/Axis-2Dbump)
 - Sponsor：Dong
 - Acknowledge：Song Moru, Cheng Long
 
+### Parameter
+
+<img src="https://cdn.mathpix.com/snip/images/KSFuMM79-hnuki6cm_LVKSspXaCo1KNqRHBsfirzhMw.original.fullsize.png" width="340px">
+
+mu=7.1488e-07 kinematic viscosity  [m^2/s]
+
+nu=mu/rho=0.00000122;  dynamic viscosity  [kg/(m*s)]
+
+dy=1.42e-7；
 
 
 
 ### Frame：
 
-<img src="https://cdn.mathpix.com/snip/images/FLoKLu0FjsDo5S0EtAbn2p4PrqaI1Vb70ONrhrDzlPY.original.fullsize.png" />
+<img src="https://cdn.mathpix.com/snip/images/FLoKLu0FjsDo5S0EtAbn2p4PrqaI1Vb70ONrhrDzlPY.original.fullsize.png" width="640px">
 
 ### Running Effeciency 
 Parameter: T=0.0001s/foam_divSchemes="SuperBeeV"/NRBCx/yPlus_max=1.0680066/64core each node
@@ -24,7 +33,8 @@ Parameter: T=0.0001s/foam_divSchemes="SuperBeeV"/NRBCx/yPlus_max=1.0680066/64cor
 - Instability
 
 solution1: choose better limiter to alleviate dispersion effect
-<img src="https://cdn.mathpix.com/snip/images/cSA0LK_DRCgxbaZwfoskt4tkcWjpIwyjpcwmE_sjL5E.original.fullsize.png" width="640px">
+
+<img src="https://cdn.mathpix.com/snip/images/cSA0LK_DRCgxbaZwfoskt4tkcWjpIwyjpcwmE_sjL5E.original.fullsize.png" width="340px">
 
 - testcase02: also instability in the shear layer （Is it a numerically similar instability with increased grid and denser stripes？）
 <img src="https://cdn.mathpix.com/snip/images/jlel6iby3EftNmMgQbaRwX_sasyTB8jxKytpoEKPbVk.original.fullsize.png" width="340px">
