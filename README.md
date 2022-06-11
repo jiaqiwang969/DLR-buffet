@@ -77,6 +77,6 @@ solution1: choose better limiter to alleviate dispersion effect
 # Improving
 After learning the Lessons from [axis-2d bump](https://github.com/jiaqiwang969/Axis-2Dbump), we start to improve this case!!
 
-### Remesh:
+### Remesh: the mesh is a natural Filter
 
 <img src="https://cdn.mathpix.com/snip/images/nYrqq5zrX3B_iPKwCAuQ18KIPIXD_dwy8rS8WeY_6q0.original.fullsize.png" width="640px">
