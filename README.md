@@ -55,7 +55,7 @@ solution1: choose better limiter to alleviate dispersion effect
 <img src="https://cdn.mathpix.com/snip/images/5-CmkH4Jk3X_ZMMmvwS7JOLL7lc7mKp4j3UK24TsKVc.original.fullsize.png" width="240px">
 
 
-### Gallery
+## First Results:
 - Performace: not bad not good~
 <div align="left">
   <img src="https://github.com/jiaqiwang969/DLR-buffet/blob/main/Performance.jpeg" width="400px">
