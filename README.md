@@ -8,12 +8,21 @@
 
 <img src="https://cdn.mathpix.com/snip/images/KSFuMM79-hnuki6cm_LVKSspXaCo1KNqRHBsfirzhMw.original.fullsize.png" width="340px">
 
-mu=7.1488e-07 kinematic viscosity  [m^2/s]
-
-nu=mu/rho=0.00000122;  dynamic viscosity  [kg/(m*s)]
-
-dy=1.42e-7；
-
+```
+mu              =7.1488e-07;  %kinematic viscosity  [m^2/s]
+nu=mu/rho       =0.00000122;  %dynamic viscosity  [kg/(m*s)]
+dy              =1.42e-7；
+gamma           =1.4;
+R               =287.05;
+ptotal          =101325;
+Mach            =1.2;
+Tinlet          =300;
+soundSpeedInlet =sqrt(gamma*R*Tinlet);
+vinlet          =soundSpeedInlet*Mach;  % 416.6627m/s
+pinlet          =ptotal/(1+0.5*(vinlet)^2/R/Tinlet); %5.0461e+04 pa
+rhoinlet        =pinlet/R/Tinlet;       % 0.5860 kg/m^3
+Ttotal          =Tinlet + Tinlet*Mach*Mach*(gamma-1)/2;
+```
 
 
 ### Frame：
