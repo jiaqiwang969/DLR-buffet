@@ -56,7 +56,7 @@ solution1: choose better limiter to alleviate dispersion effect
 
 
 ### Gallery
-- Performace
+- Performace: not bad not good~
 <div align="left">
   <img src="https://github.com/jiaqiwang969/DLR-buffet/blob/main/Performance.jpeg" width="400px">
 </div>
