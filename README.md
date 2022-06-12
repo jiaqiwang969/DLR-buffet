@@ -27,9 +27,6 @@ Ttotal          =Tinlet + Tinlet*Mach*Mach*(gamma-1)/2;
 ```
 
 
-### Frame：
-
-<img src="https://cdn.mathpix.com/snip/images/FLoKLu0FjsDo5S0EtAbn2p4PrqaI1Vb70ONrhrDzlPY.original.fullsize.png" width="640px">
 
 
 
