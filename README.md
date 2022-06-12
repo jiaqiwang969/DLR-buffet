@@ -4,7 +4,7 @@
 - Aim: Reproduce the experiment result in paper “High‐Speed PIV of shock boundary layer interactions in the transonic buffet flow of a compressor cascade”
 - Ref: 1. Andre Weiner/naca0012--shock_buffet , 2. [turbulence model](https://github.com/jiaqiwang969/SSTtransition-turbulence-model) , 3. [AeroAcoustics solver](https://github.com/jiaqiwang969/Hybrid-Methods-in-Openfoam) 4. [NSCBC](https://github.com/jiaqiwang969/NSCBC-openfoam) 5. [dbns](https://github.com/ilyapopov/dbns-port/blob/259e46a7b4f96301f872498f950702aabef4ed92/dbnsFoam/dbnsFoam.C) 6. thesis-Linear aeroacoustic solver in OpenFOAM 7. [Axis-2Dbump](https://github.com/jiaqiwang969/Axis-2Dbump)
 - Sponsor：Dong
-- Acknowledge：Song Moru, Cheng Long
+- Acknowledge：Song Moru, Cheng Long，Du Lei
 
 ### Parameter
 
@@ -30,6 +30,9 @@ Ttotal          =Tinlet + Tinlet*Mach*Mach*(gamma-1)/2;
 ### Frame：
 
 <img src="https://cdn.mathpix.com/snip/images/FLoKLu0FjsDo5S0EtAbn2p4PrqaI1Vb70ONrhrDzlPY.original.fullsize.png" width="640px">
+
+
+
 
 ### Running Effeciency 
 Parameter: T=0.0001s/foam_divSchemes="SuperBeeV"/NRBCx/yPlus_max=1.0680066/64core each node
@@ -84,3 +87,16 @@ After learning the Lessons from [axis-2d bump](https://github.com/jiaqiwang969/A
 ### Remesh: the mesh is a natural Filter
 
 <img src="https://cdn.mathpix.com/snip/images/nYrqq5zrX3B_iPKwCAuQ18KIPIXD_dwy8rS8WeY_6q0.original.fullsize.png" width="640px">
+
+- 3D mesh with extrudeMesh & createPatch command
+<img src="https://cdn.mathpix.com/snip/images/3oKYYcGNBwa8LSVYYePmkw1F1RpZOBajSgBnbTeGZEc.original.fullsize.png"  width="340px">
+
+
+## First Results: not yet converge 
+
+<img src="https://cdn.mathpix.com/snip/images/jIiNlXnmTouWWUWyQvveZ0r6STzL6axQXNV08WRW7gA.original.fullsize.png" width="640px">
+
+## Steady vribraion in one cycle？？
+<img src="https://cdn.mathpix.com/snip/images/3TwqsU5mEdTTtdI-rreur58Cx0-ILZJjI8zB1vMuoRE.original.fullsize.png"  width="340px">
+<img src="https://cdn.mathpix.com/snip/images/MjcNL-z5TpqnZEo8hJdfUb9hSYwATnmwUL5DBhhH2yc.original.fullsize.png" width="340px">
+
