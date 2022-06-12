@@ -87,3 +87,8 @@ After learning the Lessons from [axis-2d bump](https://github.com/jiaqiwang969/A
 
 - 3D mesh with extrudeMesh & createPatch command
 <img src="https://cdn.mathpix.com/snip/images/3oKYYcGNBwa8LSVYYePmkw1F1RpZOBajSgBnbTeGZEc.original.fullsize.png"  width="340px">
+
+
+## First Results: not yet converge 
+
+<img src="https://cdn.mathpix.com/snip/images/jIiNlXnmTouWWUWyQvveZ0r6STzL6axQXNV08WRW7gA.original.fullsize.png" width="640px">
