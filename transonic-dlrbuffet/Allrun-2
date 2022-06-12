@@ -1,0 +1,185 @@
+#!/bin/bash
+
+cd "${0%/*}" || exit                                # Run from this directory
+. ${WM_PROJECT_DIR:?}/bin/tools/RunFunctions        # Tutorial run functions
+. ${WM_PROJECT_DIR:?}/bin/tools/CleanFunctions      # Tutorial clean functions
+#------------------------------------------------------------------------------
+
+
+# settings
+
+    # operand setups
+    setups="
+    SpalartAllmaras
+    "
+
+    # flag to enable computations in parallel mode
+    parallel=true
+
+
+#------------------------------------------------------------------------------
+
+#######################################
+# Extract a value (Eg, from boundaryField/bump/value)
+# Arguments:
+#    $1 = dictEntry
+#    $2 = inputFile
+#    $3 = outputFile
+# Outputs:
+#    Writes to 'outputFile'
+# Notes:
+#    Only retains values between, but not including the ( ) delimiters.
+#    For example,
+#----
+#    value           nonuniform List<scalar>
+#    110
+#    (
+#    0.0041520092
+#    0.012577691
+#    0.021250264
+#    0.030176962
+#    )
+#    ;
+#######################################
+extractVal()
+{
+    if [ -f "$2" ]
+    then
+        foamDictionary -entry "$1" -value "$2" | \
+            sed -n '/(/,/)/{ s/[()]//g; /^ *$/d; p}' \
+            > "$3"
+    else
+        # Or some other tag?
+        echo "Not such file: $2" 1>&2
+        echo "0" > "$3"
+    fi
+}
+
+
+#######################################
+# Collect results into a given path
+# and clean the case for the next run
+# Arguments:
+#    $1 = Path to move results
+# Outputs:
+#    Writes info to stdout
+#######################################
+collect() {
+
+    [ $# -eq 0 ] && { echo "Usage: $0 dir-model"; exit 1; }
+
+    collection="$1"
+
+    dirResult=results/"$collection"
+    dirSettings="$dirResult"/settings
+
+    if [ ! -d "$dirResult" ]
+    then
+
+        echo "      # Collecting results and settings into $dirResult"
+
+        mkdir -p "$dirResult"
+        mkdir -p "$dirSettings"
+
+        endTime=$(foamListTimes -latestTime)
+
+        # Create datasets for benchmark comparisons
+        extractVal boundaryField.Blade.value "$endTime/Cx" Cx.$$
+	extractVal boundaryField.Blade.value "$endTime/Cy" Cy.$$
+        extractVal boundaryField.Blade.value "$endTime/wallShearStress" tau.$$
+        extractVal boundaryField.Blade.value "$endTime/Cp" cp.$$
+
+        echo "# ccx ccy tau_xx tau_yy tau_zz cp" > profiles.dat
+        paste -d ' ' Cx.$$ Cy.$$ tau.$$ cp.$$ >> profiles.dat
+        rm -f Cx.$$ Cy.$$ tau.$$ cp.$$
+
+        mv -f $(foamListTimes) "$dirResult"
+        [ -d postProcessing ] && mv -f postProcessing "$dirResult"
+        [ -d processor0 ] && mv -f processor* "$dirResult"
+        mv -f log.* "$dirResult"
+        mv -f profiles.dat "$dirResult"
+        cp -f system/{fv*,controlDict} constant/*Properties "$dirSettings"
+        mv -f 0/ "$dirSettings"
+
+        echo "      # Cleaning up the case"
+
+        #cleanTimeDirectories
+        #cleanAuxiliary
+        #cleanPostProcessing
+
+    else
+
+        echo "      # Directory $dirResult already exists"
+        echo "      # Skipping the computation"
+
+    fi
+
+}
+
+
+#------------------------------------------------------------------------------
+
+for setup in $setups
+do
+
+    echo ""
+    echo "# Computations for the setup: $setup"
+    echo ""
+
+    dirSetup="setups.orig/$setup"
+
+    if [ ! -d "$dirSetup" ]
+    then
+        echo "Setup directory: $dirSetup" \
+             "could not be found - skipping execution" 1>&2
+        exit 1
+    fi
+
+    cp -rfL "$dirSetup/0.orig" .
+    cp -rfL "$dirSetup/constant" .
+    cp -rfL "$dirSetup/system" .
+    cp -rf 0.orig/ 0/
+
+    #canCompile || exit 0    # Dynamic code
+
+    if [ ! -d constant/polyMesh ]
+    then
+
+#        runApplication blockMesh
+
+#	runApplication extrudeMesh
+
+        runApplication renumberMesh -overwrite -constant
+
+        runApplication checkMesh -allTopology -allGeometry -constant
+
+    fi
+
+    if [ "$parallel" = true ]
+    then
+
+#        runApplication decomposePar
+
+#        runParallel -s parallel renumberMesh -overwrite
+
+        #runParallel $(getApplication)
+## Pause it ##
+read -p "Press [sbatch Allrun-remote]  to start run the hisa solver..."
+read -p "Press any key to resume ..."
+## Bash add pause prompt for 5 seconds ##
+read -t 5 -p "I am going to wait for 5 seconds only ..."
+
+        runApplication reconstructPar
+
+    else
+
+        runApplication $(getApplication)
+
+    fi
+
+    collect "$setup"
+
+done
+
+
+#------------------------------------------------------------------------------

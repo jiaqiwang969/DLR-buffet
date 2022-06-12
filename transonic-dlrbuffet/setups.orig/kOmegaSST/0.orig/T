@@ -1,0 +1,74 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  dev                                   |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       volScalarField;
+    object      T;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+
+#include        "include/freestreamConditions"
+
+
+
+dimensions      [0 0 0 1 0 0 0];
+
+internalField   uniform $Tinlet;
+
+boundaryField
+{
+    INLET
+    {
+        //type            zeroGradient;
+        //value           $internalField;
+        type characteristicVelocityInletOutletTemperature;
+        //type characteristicFarfieldTemperature;
+        U $Uinlet;
+        p $pinlet;
+        T $Tinlet;
+        value $internalField;
+    }
+    OUTLET
+    {
+        //type zeroGradient;
+        //value           $internalField;
+        type characteristicPressureInletOutletTemperature;
+        //type characteristicFarfieldTemperature;
+	U $Uoutlet;
+        p $poutlet;
+        T $Toutlet;
+        value $internalField;
+    }
+    row_1_PER1
+    {
+        type            cyclic;
+    }
+    row_1_PER2
+    {
+        type            cyclic;
+
+    }
+    Blade
+    {
+        type            characteristicWallTemperature;
+        value           $internalField;
+    }
+    front
+    {
+        type            empty;
+    }
+    back
+    {
+        type            empty;
+    }
+}
+
+// ************************************************************************* //
