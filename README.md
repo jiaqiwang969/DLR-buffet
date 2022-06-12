@@ -31,7 +31,6 @@ Ttotal          =Tinlet + Tinlet*Mach*Mach*(gamma-1)/2;
 
 <img src="https://cdn.mathpix.com/snip/images/FLoKLu0FjsDo5S0EtAbn2p4PrqaI1Vb70ONrhrDzlPY.original.fullsize.png" width="640px">
 
-<img src="https://cdn.mathpix.com/snip/images/3TwqsU5mEdTTtdI-rreur58Cx0-ILZJjI8zB1vMuoRE.original.fullsize.png"  width="640px">
 
 
 
@@ -97,7 +96,7 @@ After learning the Lessons from [axis-2d bump](https://github.com/jiaqiwang969/A
 
 <img src="https://cdn.mathpix.com/snip/images/jIiNlXnmTouWWUWyQvveZ0r6STzL6axQXNV08WRW7gA.original.fullsize.png" width="640px">
 
-## Steady 
-<img src="https://cdn.mathpix.com/snip/images/MjcNL-z5TpqnZEo8hJdfUb9hSYwATnmwUL5DBhhH2yc.original.fullsize.png" 
+## Steady vribraion in one cycle？？
 <img src="https://cdn.mathpix.com/snip/images/3TwqsU5mEdTTtdI-rreur58Cx0-ILZJjI8zB1vMuoRE.original.fullsize.png"  width="340px">
+<img src="https://cdn.mathpix.com/snip/images/MjcNL-z5TpqnZEo8hJdfUb9hSYwATnmwUL5DBhhH2yc.original.fullsize.png" width="340px">
 
