@@ -1,0 +1,155 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  v2112                                 |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      controlDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+libs (
+   "libcompressibleTurbulenceModels.so"
+   "libfindroot.so"
+   "libhisaFiniteVolume.so"
+   "libvelocityOutletNSCBCx.so"
+   "libpressureOutletNSCBC.so"
+   "libtemperatureOutletNSCBC.so"
+);
+
+application     hisa;
+
+startFrom       latestTime;
+
+startTime       0;
+
+stopAt          endTime;
+
+endTime         50000;
+
+deltaT          1;
+
+writeControl    adjustableRunTime;
+
+writeInterval   500;
+
+purgeWrite      10;
+
+writeFormat     ascii;
+
+writePrecision  12;
+
+writeCompression off;
+
+timeFormat      general;
+
+timePrecision   8;
+
+runTimeModifiable true;
+
+maxCo           1.0e20;
+
+maxDeltaT       1e-5;
+
+functions
+{
+    #include "FOMachNo"
+    #include "FOvorticity"
+    fieldAverage
+    {
+        type            fieldAverage;
+        libs            (fieldFunctionObjects);
+        writeControl    writeTime;
+        fields
+        (
+            U
+            {
+                mean        on;
+                prime2Mean  off;
+                base        time;
+            }
+
+            p
+            {
+                mean        on;
+                prime2Mean  off;
+                base        time;
+            }
+
+        );
+    }
+    pressure
+    {
+        type            pressure;
+        libs            (fieldFunctionObjects);
+        writeControl    writeTime;
+        result          Cp;
+        mode            staticCoeff;
+        rho             rhoInf;
+        rhoInf          0.5860;
+        U               UInf;
+        UInf            (416.6627 0 0);
+        pInf            5.0461e+04;
+        patches         (Blade);
+    }
+
+    forceCoeffs
+    {
+        type            forceCoeffs;
+        libs            (forces);
+        writeControl    writeTime;
+        rho             rhoInf;
+        rhoInf          0.5860;
+        liftDir         (0 1 0);
+        dragDir         (1 0 0);
+        CofR            (0.75 0 0); // bump midpoint
+        pitchAxis       (0 0 1);
+        magUInf         416.6627;
+        lRef            0.07; // length of bump
+        Aref            0.000006; // mesh span = 0.006, bump height = 0.001; 0.006*0.001= 0.000006
+        patches         (Blade);
+    }
+
+    wallShearStress
+    {
+        type            wallShearStress;
+        libs            (fieldFunctionObjects);
+        writeControl    writeTime;
+        patches         (Blade);
+    }
+
+    yPlus
+    {
+        type            yPlus;
+        libs            (fieldFunctionObjects);
+        writeControl    writeTime;
+        patches         (Blade);
+    }
+
+    cellCentres
+    {
+        type            writeCellCentres;
+        libs            (fieldFunctionObjects);
+        writeControl    writeTime;
+    }
+
+    residuals
+    {
+        type            solverInfo;
+        libs            (utilityFunctionObjects);
+        fields          (".*");
+    }
+}
+
+optimisationSwitches
+{
+     fileHandler collated;
+}
+
+// ************************************************************************* //
