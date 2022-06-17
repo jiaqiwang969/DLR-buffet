@@ -88,7 +88,7 @@ solution1: choose better limiter to alleviate dispersion effect
 - [TTT02-hisa-1.05-0.71-AUSMPlusUp-5000-maxCo1-5.0e-8-long2-avi.avi](https://www.youtube.com/watch?v=ASdCueqCFpY)
 
 
-# Improving
+# Improv01: mesh
 After learning the Lessons from [axis-2d bump](https://github.com/jiaqiwang969/Axis-2Dbump), we start to improve this case!!
 
 ### Remesh: the mesh is a natural Filter
@@ -100,5 +100,5 @@ After learning the Lessons from [axis-2d bump](https://github.com/jiaqiwang969/A
 
 
 
-## Improve
+## Improve02: add WENO+RK4+NSCBC
 <img src="https://cdn.mathpix.com/snip/images/_Oi4PRJVOW4nogHdeQB8erf3A44_ALxHGeLf_cIRA98.original.fullsize.png" />
