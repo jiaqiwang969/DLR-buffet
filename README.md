@@ -104,4 +104,6 @@ After learning the Lessons from [axis-2d bump](https://github.com/jiaqiwang969/A
 <img src="https://cdn.mathpix.com/snip/images/_Oi4PRJVOW4nogHdeQB8erf3A44_ALxHGeLf_cIRA98.original.fullsize.png" />
 
 ## Improve03: add [acousticdampingsource](https://caefn.com/openfoam/fvoptions-acousticdampingsource)
+“acousticDampingSource” to damp acoustic waves generated from unsteady flow before they propagate to imperfect non-reflective inflow/outflow boundaries!
+
 <img src="https://cdn.mathpix.com/snip/images/z72z1Vg0FoZNlVHsQcJPFqQ4G5oBzpFLQxoCLRAZ9os.original.fullsize.png" />
