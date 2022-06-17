@@ -101,9 +101,9 @@ After learning the Lessons from [axis-2d bump](https://github.com/jiaqiwang969/A
 
 
 ## Improve02: add [WENO](https://github.com/jiaqiwang969/WENOEXT-project)+[RK4+LTS](https://github.com/jiaqiwang969/rhoCentralRKFoam)+[NSCBC](https://github.com/jiaqiwang969/NSCBC-openfoam)
-<img src="https://cdn.mathpix.com/snip/images/_Oi4PRJVOW4nogHdeQB8erf3A44_ALxHGeLf_cIRA98.original.fullsize.png" />
+<img src="https://cdn.mathpix.com/snip/images/_Oi4PRJVOW4nogHdeQB8erf3A44_ALxHGeLf_cIRA98.original.fullsize.png" width="640px">
 
 ## Improve03: add [acousticdampingsource](https://caefn.com/openfoam/fvoptions-acousticdampingsource)
+<img src="https://cdn.mathpix.com/snip/images/z72z1Vg0FoZNlVHsQcJPFqQ4G5oBzpFLQxoCLRAZ9os.original.fullsize.png" width="640px">
 “acousticDampingSource” to damp acoustic waves generated from unsteady flow before they propagate to imperfect non-reflective inflow/outflow boundaries!
 
-<img src="https://cdn.mathpix.com/snip/images/z72z1Vg0FoZNlVHsQcJPFqQ4G5oBzpFLQxoCLRAZ9os.original.fullsize.png" />
