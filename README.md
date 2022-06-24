@@ -1,5 +1,7 @@
 # cascade-shock_buffet Project: STEP BY STEP
-<img src="https://cdn.mathpix.com/snip/images/vDFwkqAIId0aSXhd9ji53H8UPbIBQkZkv60RMrlrlKk.original.fullsize.png" width="340px">
+<img src="https://cdn.mathpix.com/snip/images/vDFwkqAIId0aSXhd9ji53H8UPbIBQkZkv60RMrlrlKk.original.fullsize.png" width="340px"> <img src="https://cdn.mathpix.com/snip/images/tRNFJ2g5OjIkZi6C7xveBhDRQ6fLIwEfO4FLO9G5D1I.original.fullsize.png" width="160px">
+
+<img src="https://cdn.mathpix.com/snip/images/F6pa1XYtpDCvS7z6oWNvfcHTId-DshokajfVwkZcb9k.original.fullsize.png" width="510px">
 
 - Aim: Reproduce the experiment result in paper “High‐Speed PIV of shock boundary layer interactions in the transonic buffet flow of a compressor cascade”
 - Ref: 1. [Andre Weiner/naca0012--shock_buffet](https://github.com/AndreWeiner/naca0012_shock_buffet) , 2. [turbulence model](https://github.com/jiaqiwang969/SSTtransition-turbulence-model) , 3. [AeroAcoustics solver](https://github.com/jiaqiwang969/Hybrid-Methods-in-Openfoam) 4. [NSCBC](https://github.com/jiaqiwang969/NSCBC-openfoam) 5. [dbns](https://github.com/ilyapopov/dbns-port/blob/259e46a7b4f96301f872498f950702aabef4ed92/dbnsFoam/dbnsFoam.C) 6. thesis-Linear aeroacoustic solver in OpenFOAM 7. [Axis-2Dbump](https://github.com/jiaqiwang969/Axis-2Dbump) 8. [WENO](https://github.com/jiaqiwang969/WENOEXT-project) 9.[RK4+LTS](https://github.com/jiaqiwang969/rhoCentralRKFoam) 10. [WENO-example](https://figshare.com/authors/Panagiotis_Tsoutsanis/2595451) 11. [thermophysical](https://cfd.direct/openfoam/user-guide/v6-thermophysical/) 12. Markus Zauner-phd-thesis
