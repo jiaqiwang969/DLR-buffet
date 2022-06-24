@@ -21,7 +21,7 @@
 
 Animation: [TTT02-hisa-1.05-0.71-AUSMPlusUp-5000-maxCo1-5.0e-8-long2-avi.avi](https://www.youtube.com/watch?v=ASdCueqCFpY)
 
-***Excellent in capturing the shockwave with AUSM+up scheme!! And super effecient with LUGUS+GREMES!!  But not perfect in capaturing the frequency of buffet interaction.***
+
 
 - Cycle
 
@@ -29,7 +29,7 @@ Animation: [TTT02-hisa-1.05-0.71-AUSMPlusUp-5000-maxCo1-5.0e-8-long2-avi.avi](ht
 
 Simu_freq_buffet $\approx$ 118Hz, T_cycle= 0.00845 s;    (Experiments_freq=171Hz)
 
-
+***Conclusion: Excellent in capturing the shockwave with AUSM+up scheme!! And super effecient with LUGUS+GREMES!!  But not perfect in capaturing the frequency of buffet interaction.***
 
 ### [blastFoam solver](https://github.com/synthetik-technologies/blastfoam), with AUSM+up+waveTransimision  (3 order space scheme)
 
