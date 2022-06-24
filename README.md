@@ -153,3 +153,7 @@ After learning the Lessons from [axis-2d bump](https://github.com/jiaqiwang969/A
 <img src="https://cdn.mathpix.com/snip/images/z72z1Vg0FoZNlVHsQcJPFqQ4G5oBzpFLQxoCLRAZ9os.original.fullsize.png" width="640px">
 “acousticDampingSource” to damp acoustic waves generated from unsteady flow before they propagate to imperfect non-reflective inflow/outflow boundaries!
 
+
+## Tip: set the initial Co small enough, 0.001, Or the below picture will occur:
+<img src="https://cdn.mathpix.com/snip/images/z1eK9-WUWcJDMwbpRrrz8tewNBm5TSkHdrtNyBHPFIg.original.fullsize.png" width="640px">
+
