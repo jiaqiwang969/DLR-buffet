@@ -48,6 +48,8 @@ Simu_freq_buffet $\approx$ 118Hz, T_cycle= 0.00845 s;    (Experiments_freq=171Hz
 - Interaction
 <img src="https://cdn.mathpix.com/snip/images/d5NlV0GG0Nd01WX2jLtbdtbfGj5wLIVIt4MOBcTqN_c.original.fullsize.png" width="340px">
 
+<img src="https://cdn.mathpix.com/snip/images/MBcd7knkTjZZNpraQKrJ9-XRNLwb9aC9vMPvJ1-66hQ.original.fullsize.png"  width="340px">
+
 - Cycle
 
 waiting...
