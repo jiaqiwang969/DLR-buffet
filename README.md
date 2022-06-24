@@ -171,4 +171,8 @@ After learning the Lessons from [axis-2d bump](https://github.com/jiaqiwang969/A
 
 - Fix: decomposePar -fileHandler uncollated
 
+### Q3
+- using createPatch to generate cyclic boundary condition
+- [ref](https://blog.csdn.net/jerry_cld/article/details/124264643)
+
 
