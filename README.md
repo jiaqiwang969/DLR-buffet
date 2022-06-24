@@ -11,9 +11,9 @@
 
 ### hisa solver, with SAMU+plus+NSCBC (1 order space scheme)
 ```
-reconstruct(rho) wVanLeer;
-reconstruct(U)   wVanLeer;
-reconstruct(T)   wVanLeer;
+    reconstruct(rho) wVanLeer;
+    reconstruct(U)   wVanLeer;
+    reconstruct(T)   wVanLeer;
 ```
 
 
@@ -26,6 +26,14 @@ Animation: [TTT02-hisa-1.05-0.71-AUSMPlusUp-5000-maxCo1-5.0e-8-long2-avi.avi](ht
 Simu_freq_buffet $\approx$ 118Hz, T_cycle= 0.00845 s;    (Experiments_freq=171Hz)
 
 ### blastFoam solver, with SAMU+plus+waveTransimision  (3 order space scheme)
+
+```
+    reconstruct(rho)               quadraticMUSCL Minmod;
+    reconstruct(U)                 quadraticMUSCL Minmod;
+    reconstruct(e)                 quadraticMUSCL Minmod;
+    reconstruct(p)                 quadraticMUSCL Minmod;
+    reconstruct(speedOfSound)      quadraticMUSCL Minmod;
+```
 
 - Early stages
 <img src="https://cdn.mathpix.com/snip/images/AedspmaItmFj-sckjw2DFNKvCnb0IgZiZlBmCx9V6X8.original.fullsize.png" width="340px">
