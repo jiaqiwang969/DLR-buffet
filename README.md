@@ -8,10 +8,16 @@
 
 
 ### Gallery
+
+- Early stages
 <img src="https://cdn.mathpix.com/snip/images/AedspmaItmFj-sckjw2DFNKvCnb0IgZiZlBmCx9V6X8.original.fullsize.png" width="240px">
 
+- Interaction
 <img src="https://cdn.mathpix.com/snip/images/d5NlV0GG0Nd01WX2jLtbdtbfGj5wLIVIt4MOBcTqN_c.original.fullsize.png" width="240px">
 
+- Cycle
+
+waiting...
 
 
 
