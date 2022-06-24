@@ -154,6 +154,21 @@ After learning the Lessons from [axis-2d bump](https://github.com/jiaqiwang969/A
 “acousticDampingSource” to damp acoustic waves generated from unsteady flow before they propagate to imperfect non-reflective inflow/outflow boundaries!
 
 
-## Tip: set the initial Co small enough, 0.001, Or the below picture will occur:
+## BUG adn FIX
+
+### Q1
+- Set the initial Co small enough, 0.001, Or the below picture will occur:
 <img src="https://cdn.mathpix.com/snip/images/z1eK9-WUWcJDMwbpRrrz8tewNBm5TSkHdrtNyBHPFIg.original.fullsize.png" width="640px">
+
+
+### Q2
+- Error: I/O    : collated (maxThreadFileBufferSize 2e+09)
+         Threading activated since maxThreadFileBufferSize > 0.
+         Requires large enough buffer to collect all data or thread support
+         enabled in MPI. If thread support cannot be enabled, deactivate
+         threading by setting maxThreadFileBufferSize to 0 in
+         $FOAM_ETC/controlDict
+
+- Fix: decomposePar -fileHandler uncollated
+
 
