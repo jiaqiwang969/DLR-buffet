@@ -7,13 +7,31 @@
 - Acknowledge：Song Moru, Cheng Long，Du Lei
 
 
-### Gallery
+# Gallery
+
+### hisa solver, with SAMU+plus+NSCBC (1 order space scheme)
+```
+reconstruct(rho) wVanLeer;
+reconstruct(U)   wVanLeer;
+reconstruct(T)   wVanLeer;
+```
+
+
+Animation: [TTT02-hisa-1.05-0.71-AUSMPlusUp-5000-maxCo1-5.0e-8-long2-avi.avi](https://www.youtube.com/watch?v=ASdCueqCFpY)
+
+- Cycle
+
+<img src="https://cdn.mathpix.com/snip/images/CtJf8WQpi7ubGOaAumKUYiIy4vF2L4pP7iee_H8AjMA.original.fullsize.png" width="340px">
+
+Simu_freq_buffet $\approx$ 118Hz, T_cycle= 0.00845 s;    (Experiments_freq=171Hz)
+
+### blastFoam solver, with SAMU+plus+waveTransimision  (3 order space scheme)
 
 - Early stages
-<img src="https://cdn.mathpix.com/snip/images/AedspmaItmFj-sckjw2DFNKvCnb0IgZiZlBmCx9V6X8.original.fullsize.png" width="240px">
+<img src="https://cdn.mathpix.com/snip/images/AedspmaItmFj-sckjw2DFNKvCnb0IgZiZlBmCx9V6X8.original.fullsize.png" width="340px">
 
 - Interaction
-<img src="https://cdn.mathpix.com/snip/images/d5NlV0GG0Nd01WX2jLtbdtbfGj5wLIVIt4MOBcTqN_c.original.fullsize.png" width="240px">
+<img src="https://cdn.mathpix.com/snip/images/d5NlV0GG0Nd01WX2jLtbdtbfGj5wLIVIt4MOBcTqN_c.original.fullsize.png" width="340px">
 
 - Cycle
 
@@ -98,10 +116,6 @@ solution1: choose better limiter to alleviate dispersion effect
 <img src="https://cdn.mathpix.com/snip/images/YwxuxBPoW6K1iEF1JKlGbKzZO_CtuimX5UTBu-niD0Y.original.fullsize.png" width="640px">
 
  -->
-
-## Animation
-- [TTT02-hisa-1.05-0.71-AUSMPlusUp-5000-maxCo1-5.0e-8-long2-avi.avi](https://www.youtube.com/watch?v=ASdCueqCFpY)
-
 
 # Improv01: mesh
 After learning the Lessons from [axis-2d bump](https://github.com/jiaqiwang969/Axis-2Dbump), we start to improve this case!!
