@@ -21,7 +21,7 @@
 
 Animation: [TTT02-hisa-1.05-0.71-AUSMPlusUp-5000-maxCo1-5.0e-8-long2-avi.avi](https://www.youtube.com/watch?v=ASdCueqCFpY)
 
-** Excellent in capturing the shockwave with AUSM+up scheme!! And super effecient with LUGUS+GREMES!!  But not perfect in capaturing the frequency of buffet interaction. **
+***Excellent in capturing the shockwave with AUSM+up scheme!! And super effecient with LUGUS+GREMES!!  But not perfect in capaturing the frequency of buffet interaction.***
 
 - Cycle
 
