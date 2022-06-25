@@ -175,4 +175,8 @@ After learning the Lessons from [axis-2d bump](https://github.com/jiaqiwang969/A
 - using createPatch to generate cyclic boundary condition
 - [ref](https://blog.csdn.net/jerry_cld/article/details/124264643)
 
+### Q4 
+- decomposePar steategy
+- (ref)[http://penguinitis.g1.xrea.com/study/OpenFOAM/partition/partition.html]
+
 
