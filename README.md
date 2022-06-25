@@ -177,6 +177,6 @@ After learning the Lessons from [axis-2d bump](https://github.com/jiaqiwang969/A
 
 ### Q4 
 - decomposePar steategy
-- (ref)[http://penguinitis.g1.xrea.com/study/OpenFOAM/partition/partition.html]
+- [ref](http://penguinitis.g1.xrea.com/study/OpenFOAM/partition/partition.html)
 
 
