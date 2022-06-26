@@ -17,7 +17,7 @@
 
 #### STEADY: hisa is amazing effecient and accurant for steady flow! We will apply it as the initial flow condition.
 
-<img src="https://cdn.mathpix.com/snip/images/OdZihTL0mzdrpkCvC1E0Y7fY61f9UJozdbot0AttgTU.original.fullsize.png" width="340px">
+<img src="https://cdn.mathpix.com/snip/images/0eV4Zrq_jH5jHAs6HNlf0xaRtQSxBvZ802I230Xn3VA.original.fullsize.png" width="640px">
 
 
 ```
