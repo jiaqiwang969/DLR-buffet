@@ -15,7 +15,7 @@
 ### [hisa solver](https://gitlab.com/hisa/hisa), with AUSM+up+NSCBC (1 order space scheme)
 
 
-#### STEADY: hisa is amazing effecient and accurant for steady flow!
+#### STEADY: hisa is amazing effecient and accurant for steady flow! We will apply it as the initial flow condition.
 
 <img src="https://cdn.mathpix.com/snip/images/OdZihTL0mzdrpkCvC1E0Y7fY61f9UJozdbot0AttgTU.original.fullsize.png" width="340px">
 
