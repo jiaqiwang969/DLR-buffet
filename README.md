@@ -198,4 +198,9 @@ After learning the Lessons from [axis-2d bump](https://github.com/jiaqiwang969/A
 - [ref](http://penguinitis.g1.xrea.com/study/OpenFOAM/partition/partition.html)
 - with "structed" decomposition method, 0.05s/dt.   VS.   "scotch":0.07s/dt
 
+### Q5
+- Corant number is vital for capturing the acoustic wave, suggestion: coMax<0.3 
+
+
+
 
