@@ -17,9 +17,18 @@
 
 #### STEADY: hisa is amazing effecient and accurant for steady flow! We will apply it as the initial flow condition.
 
-<img src="https://cdn.mathpix.com/snip/images/0eV4Zrq_jH5jHAs6HNlf0xaRtQSxBvZ802I230Xn3VA.original.fullsize.png" width="640px">
+<img src="https://cdn.mathpix.com/snip/images/4oTOdpsvWc2t5dwLYbtvHDaRwig6MJ_Pdl_k9GoqgCA.original.fullsize.png" width="640px">
 
 
+- Mach=1.05 with different outlet pressure conditions
+<img src="https://cdn.mathpix.com/snip/images/iPPKYPTLjXij_RncUKreMglwiK1Kk2k69eEoyl-yVoU.original.fullsize.png" width="340px">
+
+- Mach=1.12  with different outlet pressure conditions
+
+<img src="https://cdn.mathpix.com/snip/images/6SVpa-pt_OrgsHy70G01GVJBCXJtYCYAUWmfiN69TKc.original.fullsize.png" width="340px">
+
+
+- setting
 ```
     reconstruct(rho) wVanLeer;
     reconstruct(U)   wVanLeer;
