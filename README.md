@@ -196,5 +196,6 @@ After learning the Lessons from [axis-2d bump](https://github.com/jiaqiwang969/A
 ### Q4 
 - decomposePar steategy
 - [ref](http://penguinitis.g1.xrea.com/study/OpenFOAM/partition/partition.html)
+- with "structed" decomposition method, 0.05s/dt.   VS.   "scotch":0.07s/dt
 
 
