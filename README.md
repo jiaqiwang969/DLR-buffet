@@ -27,6 +27,8 @@
 
 <img src="https://cdn.mathpix.com/snip/images/6SVpa-pt_OrgsHy70G01GVJBCXJtYCYAUWmfiN69TKc.original.fullsize.png" width="340px">
 
+- with "structed" decomposition method is faster 0.05s/dt.  vs "scotch" 0.07s/dt.
+
 
 - setting
 ```
