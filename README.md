@@ -18,10 +18,10 @@
 #### STEADY: hisa is amazing effecient and accurant for steady flow! We will apply it as the initial flow condition.
 
 <img src="https://cdn.mathpix.com/snip/images/i1USgB0AESJ4yh-Czuqo6gVfYS0p3VDMQQNT4Ug1g74.original.fullsize.png" width="640px">
-[link](https://www.youtube.com/watch?v=4Hwc7xtLZuk)
+ [link](https://www.youtube.com/watch?v=4Hwc7xtLZuk)
 
 <img src="https://cdn.mathpix.com/snip/images/85179UC4ceKQ0Gp6LHFSN-G1Ba4eFVlGwyEViTEuNV4.original.fullsize.png" width="640px">
-[link](https://www.youtube.com/watch?v=qtFG19X1-BU)
+ [link](https://www.youtube.com/watch?v=qtFG19X1-BU)
 
 
 - Mach=1.05 with different outlet pressure conditions
