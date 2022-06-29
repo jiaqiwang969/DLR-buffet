@@ -100,6 +100,7 @@ rhoinlet        =pinlet/R/Tinlet;       % 0.5860 kg/m^3
 Ttotal          =Tinlet + Tinlet*Mach*Mach*(gamma-1)/2;
 ```
 
+Finial set dy=1.6e-6 to blance the time and accuracy.
 
 
 
