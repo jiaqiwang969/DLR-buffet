@@ -23,6 +23,8 @@
 <img src="https://cdn.mathpix.com/snip/images/85179UC4ceKQ0Gp6LHFSN-G1Ba4eFVlGwyEViTEuNV4.original.fullsize.png" width="640px">
  [link](https://www.youtube.com/watch?v=qtFG19X1-BU)
 
+***Using it as initial condition for transient simulation.***
+
 
 - Mach=1.05 with different outlet pressure conditions
 <img src="https://cdn.mathpix.com/snip/images/iPPKYPTLjXij_RncUKreMglwiK1Kk2k69eEoyl-yVoU.original.fullsize.png" width="340px">
