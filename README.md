@@ -87,6 +87,25 @@ Simu_freq_buffet $\approx$ 118Hz, T_cycle= 0.00845 s;    (Experiments_freq=171Hz
 
 
 
+
+### NEWSTART
+
+<img src="https://cdn.mathpix.com/snip/images/bSymuPf6mTF1wCS7jp7M8sdRWb-RGziyfXGVHEtG5K0.original.fullsize.png" width="340px">
+
+we use [gammaReTheta turbulence model](https://github.com/jiaqiwang969/SSTtransition-turbulence-model) and combine with IDDES. parameter "im" reprecentes the seperation point. As shown in Figure above, it very well matched with experiments.
+
+
+
+
+
+
+
+
+
+
+
+
+
 ### Parameter
 
 <img src="https://cdn.mathpix.com/snip/images/KSFuMM79-hnuki6cm_LVKSspXaCo1KNqRHBsfirzhMw.original.fullsize.png" width="340px">
