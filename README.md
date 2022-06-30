@@ -19,9 +19,12 @@
 
 <img src="https://cdn.mathpix.com/snip/images/i1USgB0AESJ4yh-Czuqo6gVfYS0p3VDMQQNT4Ug1g74.original.fullsize.png" width="640px">
  [link](https://www.youtube.com/watch?v=4Hwc7xtLZuk)
+  [refine](https://www.youtube.com/watch?v=FS-AvDEZlrM)
 
 <img src="https://cdn.mathpix.com/snip/images/85179UC4ceKQ0Gp6LHFSN-G1Ba4eFVlGwyEViTEuNV4.original.fullsize.png" width="640px">
  [link](https://www.youtube.com/watch?v=qtFG19X1-BU)
+ [refine](https://www.youtube.com/watch?v=4nM3ViD-KGg)
+
 
 ***Using it as initial condition for transient simulation.***
 
