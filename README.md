@@ -27,6 +27,8 @@ Results02: [5x refine-yplus<1](https://www.youtube.com/watch?v=FS-AvDEZlrM)
 
  Results01: [1x yplus<25](https://www.youtube.com/watch?v=qtFG19X1-BU)
  
+ 
+ 
  Results02: [5x refine-yplus<1](https://www.youtube.com/watch?v=4nM3ViD-KGg)
 
 
@@ -234,6 +236,7 @@ After learning the Lessons from [axis-2d bump](https://github.com/jiaqiwang969/A
 ### Q5
 - Corant number is vital for capturing the acoustic wave, suggestion: coMax<0.3 
 
-
+### Q6
+- For steady flow or Rans, wall function is effecient and accurant. But for LES, " it’s not good to use the wall-function in LES" . [ref](https://www.cfd-online.com/Forums/openfoam-solving/63122-les-wall-function.html)
 
 
