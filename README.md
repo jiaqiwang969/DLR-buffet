@@ -194,7 +194,7 @@ After learning the Lessons from [axis-2d bump](https://github.com/jiaqiwang969/A
 
 <img src="https://cdn.mathpix.com/snip/images/nYrqq5zrX3B_iPKwCAuQ18KIPIXD_dwy8rS8WeY_6q0.original.fullsize.png" width="640px">
 
-- 3D mesh with extrudeMesh & createPatch command
+- 3D mesh with [extrudeMesh & createPatch command](https://github.com/jiaqiwang969/3d-extrudMesh-factory) 
 <img src="https://cdn.mathpix.com/snip/images/3oKYYcGNBwa8LSVYYePmkw1F1RpZOBajSgBnbTeGZEc.original.fullsize.png"  width="340px">
 
 
