@@ -110,12 +110,12 @@ we use [gammaReTheta turbulence model](https://github.com/jiaqiwang969/SSTtransi
 
 ### Parameter
 
-<img src="https://cdn.mathpix.com/snip/images/KSFuMM79-hnuki6cm_LVKSspXaCo1KNqRHBsfirzhMw.original.fullsize.png" width="340px">
+<img src="https://cdn.mathpix.com/snip/images/MN-uxBJbdMZf7_7V7iLO6YFQ1I3oEVg8oKx8KoQ8Q80.original.fullsize.png" width="340px">
 
 ```
-mu              =7.1488e-07;  %kinematic viscosity  [m^2/s]
-nu=mu/rho       =0.00000122;  %dynamic viscosity  [kg/(m*s)]
-dy              =1.42e-7；
+mu              =7.1488e-06;  %kinematic viscosity  [m^2/s]
+nu=mu/rho       =0.0000122;  %dynamic viscosity  [kg/(m*s)]
+dy              =1.2e-6；
 gamma           =1.4;
 R               =287.05;
 ptotal          =101325;
