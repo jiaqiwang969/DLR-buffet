@@ -19,8 +19,8 @@
 <img src="https://cdn.mathpix.com/snip/images/oKzp6uibtgSkPSCkgCWF-YjC6j11cwkz6pQ3jWwlwyQ.original.fullsize.png" width="940px">
 
 
-https://www.youtube.com/watch?v=sY5ieP0sbQo
-
+https://youtube.com/watch?v=sY5ieP0sbQo
+https://youtu.be/tCOMNOT4jdY
 
 
 
