@@ -17,6 +17,7 @@
 # NEW Gallery LES
 
 <img src="https://cdn.mathpix.com/snip/images/oKzp6uibtgSkPSCkgCWF-YjC6j11cwkz6pQ3jWwlwyQ.original.fullsize.png" width="940px">
+<img src="https://cdn.mathpix.com/snip/images/du4tNhNQwiLzWR7u50wXQPVaaJFG3WIiSN5V08Jog90.original.fullsize.png" width="940px">
 
 
 https://youtube.com/watch?v=sY5ieP0sbQo
