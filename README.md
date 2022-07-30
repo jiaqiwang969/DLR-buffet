@@ -15,6 +15,7 @@
 
 
 # NEW Gallery LES
+<img src="https://cdn.mathpix.com/snip/images/9tXhfjdUTjLPVwj984HsDd26VYEmMmK0001AF5aJRm8.original.fullsize.png" width="640px">
 https://www.youtube.com/watch?v=lOiZ-XGfezs
 <img src="https://cdn.mathpix.com/snip/images/d5oYZnK5demZgN_vh6G2IjsEQ_aoyphJdSW9GadAx5k.original.fullsize.png" width="940px">
 <img src="https://cdn.mathpix.com/snip/images/BW-pbhmj42HkElnONIRttdOvzxzYcy8JcCSZcLCoFBM.original.fullsize.png" width="940px">
