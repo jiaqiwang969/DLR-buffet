@@ -17,6 +17,10 @@
 # NEW Gallery LES
 More detail in /results/*.html by flowTorch
 
+DMD mode animation:
+https://www.youtube.com/watch?v=kIt2vlXysII
+https://www.youtube.com/watch?v=AsZuP-iJ4fQ
+
 <img src="https://cdn.mathpix.com/snip/images/o4Qs-tYWQZOT4jUKnfVcgJrYz48k5xVzf2eArOFyiao.original.fullsize.png" width="640px">
 <img src="https://cdn.mathpix.com/snip/images/TKlEPGOYJ8FNWFk8LnpIwwfmCMtIGnVgUC87uZW4ZVM.original.fullsize.png" width="640px">
 https://www.youtube.com/watch?v=lOiZ-XGfezs
