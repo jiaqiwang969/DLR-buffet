@@ -1,3 +1,5 @@
+Some images are not working due to hosting reasons, sorry about that！
+
 # cascade-shock_buffet Project: STEP BY STEP
 <img src="https://cdn.mathpix.com/snip/images/vDFwkqAIId0aSXhd9ji53H8UPbIBQkZkv60RMrlrlKk.original.fullsize.png" width="340px"> <img src="https://cdn.mathpix.com/snip/images/tRNFJ2g5OjIkZi6C7xveBhDRQ6fLIwEfO4FLO9G5D1I.original.fullsize.png" width="160px">
 
