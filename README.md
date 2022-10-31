@@ -7,7 +7,7 @@
 - Please contact me if you have any ideas or suggestions~
 
 
-## [Precentation](http://deal-ii.com/post/e56c5784/)
+## [Precentation is Here](http://deal-ii.com/post/e56c5784/)
 
 
 
